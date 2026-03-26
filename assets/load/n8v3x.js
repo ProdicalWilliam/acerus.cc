@@ -107,12 +107,24 @@
 
   const tickerEl = document.getElementById('p5u1i');
   if (tickerEl){
-    const items = [
-      'Unique Builds','Advanced Protection','Peak Performance',
-      'Instant Delivery','Precision Tuning','Dedicated Support',
-      'Custom Generation','Optimized Core','Stable Architecture',
-      'Always Updated','Streamproof','Fully External'
-    ];
+const items = [
+  'Valorant',
+  'Apex Legends',
+  'FragPunk',
+  'Strinova',
+  'Overwatch 2',
+
+  'Always Updated',
+  'Streamproof',
+  'Fully External',
+  'Instant Delivery',
+  'Optimized Performance',
+  'Stable Architecture',
+  'Precision Tuning',
+  'Advanced Protection',
+  'Dedicated Support',
+  'Custom Builds'
+];
     tickerEl.innerHTML = [...items,...items]
       .map(i => `<span class="ti"><span>·</span>${i}</span>`)
       .join('');
