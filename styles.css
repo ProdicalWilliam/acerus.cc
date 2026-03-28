@@ -344,7 +344,7 @@ img {
 }
 
 .video-thumb img {
-    width: 100%;
+    width: 110%;
     height: auto;
     transform: translateX(100px);
     user-select: none;
@@ -361,7 +361,8 @@ img {
 }
 
 .video-text {
-    order: 1;
+    order: 2;
+    margin-left: -40px; /* adjust this value */
 }
 
 .video-thumb iframe {
@@ -398,11 +399,12 @@ img {
 }
 
 .video-text h3 {
-  font-family: 'Oswald', sans-serif;
-  font-size: clamp(32px, 4vw, 54px);
-  line-height: 0.96;
-  text-transform: uppercase;
-  margin-bottom: 14px;
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(32px, 4vw, 54px);
+    line-height: 0.96;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    white-space: nowrap;
 }
 
 .video-text p,
@@ -649,6 +651,85 @@ img {
 .careers-section {
   padding-top: 92px;
 }
+
+/* Initial state */
+.animate-slide {
+    opacity: 0;
+    transform: translateY(20px);
+    animation-fill-mode: forwards;
+}
+
+/* Animation keyframes */
+@keyframes slideInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animation trigger class */
+.animate-slide.active {
+    animation: slideInUp 0.8s ease-out forwards;
+}
+
+/* Optional delay for subtitle */
+.animate-slide.delay-1.active {
+    animation-delay: 0.2s;
+}
+
+.scatter-letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(-20px) scale(1.4);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
+}
+
+    .scatter-letter.scatter-in {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+.preview-outer {
+    padding: 0;
+}
+
+.preview-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 56px 88px;
+}
+
+    .preview-inner .section-head {
+        margin-bottom: 28px;
+    }
+
+.preview-iframe {
+  width: 100%;
+  max-width: 700px;    /* adjust to taste */
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  border: 1px solid rgba(176, 226, 255, 0.12);
+  display: block;
+}
+
+@media (max-width: 840px) {
+    .preview-inner {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}
+
+/* ── Paragraph fade up ── */
+.fade-up-target {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s;
+}
+
+    .fade-up-target.fade-up-in {
+        opacity: 1;
+        transform: translateY(0);
+    }
 
 .open-count {
   font-family: 'Oswald', sans-serif;
