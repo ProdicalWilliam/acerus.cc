@@ -3,353 +3,319 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Who We Are | Riot Games</title>
+    <title>Acerus | We Are Acerus</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="assets/data/29_rf_2F91O.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="https://i.imgur.com/xCe4hEC.png">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <aside class="side-rail" aria-label="Primary">
+    <a href="#top" class="brand" aria-label="Acerus home">
+        <span class="brand-mark">
+            <img src="https://i.imgur.com/k61NTqG.png" alt="Acerus Logo">
+        </span>
+      <span class="brand-copy">
+        <strong>ACERUS</strong>
+        <span>Guest | #F020X2</span>
+      </span>
+    </a>
 
-    <nav>
-        <a href="#" class="nav-logo">
-            <svg width="30" height="32" viewBox="0 0 185.47 163.51"><path d="M98.77 0L0 45.74l24.61 93.66 18.73-2.3-5.15-58.89 6.15-2.74 10.62 60.2 32.01-3.93-5.69-65 6.09-2.71 11.68 66.23 32.38-3.98-6.23-71.25 6.16-2.74 12.77 72.43 32.01-3.93V19.38L98.77 0zm2.32 142.05l1.63 9.22 73.42 12.24v-30.68l-75.01 9.21-.04.01z" /></svg>
-            <span class="nav-logo-text">RIOT<br>GAMES</span>
-        </a>
-        <div class="nav-divider"></div>
-        <div class="nav-mode">
-            <img src="https://i.imgur.com/xCe4hEC.png" alt="Mode icon">
-        </div>
-        <ul class="nav-links">
-            <li><a href="#">WHO WE ARE</a></li>
-            <li><a href="#">WORK WITH US</a></li>
-            <li><a href="#">NEWS</a></li>
-        </ul>
-        <div class="nav-right">
-            <div class="nav-globe">
-                <svg viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="9"></circle>
-                    <path d="M3 12h18M12 3c2.5 2.7 4 5.8 4 9s-1.5 6.3-4 9M12 3c-2.5 2.7-4 5.8-4 9s1.5 6.3 4 9" />
-                </svg>
-            </div>
-            <div class="nav-search">
-                <span>SEARCH</span>
-                <svg viewBox="0 0 24 24">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="m21 21-4.35-4.35"></path>
-                </svg>
-            </div>
-            <button class="btn-signin">SIGN IN</button>
-        </div>
+    <nav class="rail-nav">
+      <a href="#who" class="rail-item active">
+        <span class="rail-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1v-8.5Z"/></svg>
+        </span>
+        <span class="rail-label">Who We Are</span>
+      </a>
+      <a href="#work" class="rail-item">
+        <span class="rail-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6V5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1h4a2 2 0 0 1 2 2v2H4V8a2 2 0 0 1 2-2h4Zm4 0V5h-4v1h4ZM4 12h16v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7Z"/></svg>
+        </span>
+        <span class="rail-label">Work With Us</span>
+      </a>
+      <a href="#news" class="rail-item">
+        <span class="rail-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h11a3 3 0 0 1 3 3v11a2 2 0 0 1-2 2H7a3 3 0 0 1-3-3V6a2 2 0 0 1 2-2Zm2 4h7v2H8V8Zm0 4h8v2H8v-2Zm0 4h5v2H8v-2Z"/></svg>
+        </span>
+        <span class="rail-label">News</span>
+      </a>
     </nav>
 
-    <div class="hero" id="hero">
-        <video class="hero-video active" id="vid-0" src="https://www.riotgames.com/darkroom/original/481245cfe31a52849c9dc872ff00c594:68f48958746125630fadada9132b3ce0/playerfirst-resize.mp4" poster="https://www.riotgames.com/darkroom/1200/ce883f6d4a77532c9533c63adfe2815f:2c55a7836ba6666eb787b352c4ff0d0d/playerfirst-thumbnail.jpg" autoplay loop playsinline muted></video>
-        <video class="hero-video" id="vid-1" src="https://www.riotgames.com/darkroom/original/258145c653fd98f1c96def98df7024ea:268ba3c71e81bbc3afaec7495e46137c/seriousaboutgames-resize.mp4" poster="https://www.riotgames.com/darkroom/1200/1e3fc496eab082d20e48d62b547ad3ff:ee39a5d864508eb8b73c33358c491a11/seriousaboutgames-thumbanil.png" loop playsinline muted></video>
-        <video class="hero-video" id="vid-2" src="https://www.riotgames.com/darkroom/original/4d2c6ce72a47f384fdd2436e483387e9:de5ba52552b32ea1ec78f9f53843699d/dreamdeliver.mp4" poster="https://www.riotgames.com/darkroom/1200/c69e945c75fda3acd22671950de29f30:7114c9825f5d408493dec262be13a3b9/burj-khalifa.png" loop playsinline muted></video>
-        <video class="hero-video" id="vid-3" src="https://www.riotgames.com/darkroom/original/fd5d62642d9d59e7e88a0b8319d61098:f0ae48ba732c64c440ae91fff047b50b/inforthelongterm.mp4" poster="https://www.riotgames.com/darkroom/1200/bd981272f4a83289c59de640117490fd:21bc74b2da9fe7637f4ef919adb8bc3e/inforthelongterm-thumbnail.png" loop playsinline muted></video>
-        <video class="hero-video" id="vid-4" src="https://www.riotgames.com/darkroom/original/a344e50888cbc1909bc63d98255985d1:1e20c5970f9fc0a6e8f3337245921ddb/oneriot.mp4" poster="https://www.riotgames.com/darkroom/1200/b09fde474ab9fad9b14525a1d0052d68:8a680977b9da669273c0e0d76f355a31/grc2022-company-photo-1.png" loop playsinline muted></video>
-        <div class="hero-dim"></div>
-        <div class="hero-content">
-            <p class="hero-eyebrow">Our Values</p>
-            <h1 class="hero-title" id="htitle">We Are Acerus</h1>
-            <p class="hero-desc" id="hdesc">Everything we do is in service of players. This continuous focus inspires the most meaningful and lasting game experiences.</p>
-        </div>
-        <div class="hero-tabs">
-            <button class="htab active" data-i="0"><span class="htab-num">01.</span>Acerus First<div class="htab-progress"></div></button>
-            <button class="htab" data-i="1"><span class="htab-num">02.</span>Serious About Games<div class="htab-progress"></div></button>
-            <button class="htab" data-i="2"><span class="htab-num">03.</span>Dream and Deliver<div class="htab-progress"></div></button>
-            <button class="htab" data-i="3"><span class="htab-num">04.</span>In for the long term<div class="htab-progress"></div></button>
-            <button class="htab" data-i="4"><span class="htab-num">05.</span>One Riot<div class="htab-progress"></div></button>
-        </div>
+    <div class="rail-bottom">
+      <button class="rail-chip" type="button">
+        <span class="rail-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 18a8 8 0 1 1 5.3-14h.1a8 8 0 0 1-5.4 14Zm8.6 1.2-3.2-3.2"/></svg>
+        </span>
+        <span class="rail-label">Search</span>
+      </button>
+      <a href="#" class="rail-chip accent">
+        <span class="rail-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.4 9.7 8 10 4.6-.3 8-5 8-10V6l-8-4Zm1 6 5 5-7 7-4-4 2-2 2 2 5-5-3-3 2-2Z"/></svg>
+        </span>
+        <span class="rail-label">Sign In</span>
+      </a>
     </div>
+  </aside>
 
-    <div class="section">
-        <div class="values-panel active" id="vp-0">
-            <div class="values-grid">
-                <div class="vitem"><h3>The best ColorBot in the market</h3><p>Acerus stands at the top of the game, delivering unmatched ColorBot performance, elite color detection, and the kind of consistency that sets us apart from everything else out there.</p></div>
-                <div class="vitem"><h3>Trusted by thousands</h3><p>With over 5,000 subscriptions sold in past few months, Acerus has built a massive reputation for quality, reliability, and results that speak for themselves.</p></div>
-                <div class="vitem"><h3>Built on 3+ years of experience</h3><p>We have spent more than three years refining, improving, and pushing Acerus forward so every update reflects real experience and real standards.</p></div>
-                <div class="vitem"><h3>Made for serious users</h3><p>Acerus is built for people who want a ColorBot that feels clean, dependable, and ready to perform at a high level every time.</p></div>
-            </div>
-        </div>
-        <div class="values-panel" id="vp-1">
-            <div class="values-grid">
-                <div class="vitem"><h3>Precision over everything</h3><p>Every part of Acerus is crafted to feel sharp, smooth, and accurate, giving users the kind of control that makes a real difference.</p></div>
-                <div class="vitem"><h3>Consistency that hits</h3><p>We focus on stability and dependable performance, because the best ColorBot is not just strong once — it stays strong every session.</p></div>
-                <div class="vitem"><h3>Polished for the community</h3><p>We listen, refine, and improve with purpose, making sure Acerus continues to evolve with the people who use it most.</p></div>
-                <div class="vitem"><h3>Respect for the grind</h3><p>We understand the effort it takes to stay ahead, and Acerus exists to reward that grind with tools that actually deliver.</p></div>
-            </div>
-        </div>
-        <div class="values-panel" id="vp-2">
-            <div class="values-grid">
-                <div class="vitem"><h3>Always ahead of the curve</h3><p>Acerus is built with a forward mindset, staying sharp, staying current, and always aiming to set the standard instead of following it.</p></div>
-                <div class="vitem"><h3>High standards only</h3><p>We do not settle for average. Every detail is pushed until it feels premium, powerful, and worthy of the name Acerus.</p></div>
-                <div class="vitem"><h3>Performance with personality</h3><p>Acerus brings confidence, style, and the kind of presence that makes it stand out instantly.</p></div>
-                <div class="vitem"><h3>Results that show</h3><p>At the end of the day, what matters most is impact — and Acerus is built to leave no doubt about what it can do.</p></div>
-            </div>
-        </div>
-        <div class="values-panel" id="vp-3">
-            <div class="values-grid">
-                <div class="vitem"><h3>Proven by the numbers</h3><p>Over 5,000 subscriptions is not just a milestone — it is proof that Acerus has earned trust at scale.</p></div>
-                <div class="vitem"><h3>Three years of dominance</h3><p>For more than 3 years, Acerus has been growing, improving, and building a name that people recognize for a reason.</p></div>
-                <div class="vitem"><h3>Worth the investment</h3><p>We make sure every subscription feels valuable, because Acerus is meant to feel like a real upgrade from the start.</p></div>
-                <div class="vitem"><h3>Built to keep winning</h3><p>We are not here for a moment. Acerus is built for the long run, with a reputation that only gets stronger over time.</p></div>
-            </div>
-        </div>
-        <div class="values-panel" id="vp-4">
-            <div class="values-grid">
-                <div class="vitem"><h3>A league above</h3><p>Acerus is the kind of name people remember because it delivers the kind of quality others try to copy.</p></div>
-                <div class="vitem"><h3>For the top tier</h3><p>This is for users who want the best ColorBot experience available, with no shortcuts and no weak links.</p></div>
-                <div class="vitem"><h3>Built with confidence</h3><p>Everything about Acerus is made to feel bold, refined, and undeniably strong from the first moment you use it.</p></div>
-                <div class="vitem"><h3>The standard everyone chases</h3><p>When people talk about the best ColorBot in the market, Acerus is the name that keeps coming up.</p></div>
-            </div>
-        </div>
-    </div>
+  <main id="top" class="page-shell">
+      <section class="hero" id="who">
+          <div class="hero-copy">
+              <p class="eyebrow">Our Values</p>
+              <h1 class="hero-title">We Are Acerus</h1>
+              <p class="hero-subtitle">
+                  Everything we do is in service of players. This continuous focus inspires the most meaningful and lasting game experiences.
+              </p>              <div class="hero-actions">
+                  <a href="#values" class="btn-solid">Explore Acerus</a>
+                  <a href="#games" class="btn-outline">See Supported Games</a>
+              </div>
+          </div>
 
-    <div class="video-outer">
-        <div class="video-inner">
-            <div class="video-thumb">
-                <iframe id="video-frame" src="https://streamable.com/s/2outsk" frameborder="0" width="480" height="270" allowfullscreen style="pointer-events:none;"></iframe>
-                <div class="video-play" id="play-btn">
-                    <div class="play-circle">
-                        <svg viewBox="0 0 24 24">
-                            <polygon points="5,3 19,12 5,21" fill="#fff" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="video-text">
-                <h3>We Are Acerus</h3>
-                <p>Acerus was built in 2021 to deliver the best ColorBot experience in the market. Over the past 3+ years, we have grown into a trusted name with 5,000+ subscriptions sold in only past few months, serving users around the world with performance that is precise, consistent, and built to stand out. From constant refinement to real results, Acerus is all about giving people a ColorBot they can rely on.</p>
-            </div>
-        </div>
-    </div>
+          <div class="hero-visual" aria-hidden="true">
+              <div class="hero-glow hero-glow-a"></div>
+              <div class="hero-glow hero-glow-b"></div>
+              <img src="https://i.imgur.com/iXdfYtT.png" alt="">
+          </div>
+      </section>
 
-    <div class="section">
-        <h2 class="section-title">Our Supported Games</h2>
+      <section class="section" id="values">
+          <div class="section-head">
+              <h2 class="section-title">Our Values</h2>
+              <p class="section-copy">We have honest prices for a honest cheat. We are the best colorbot on the market. Always up to date with simple run cheat and play, no extra hardware needed.</p>
+          </div>
+          <div class="values-img-wrap">
+              <img src="https://i.imgur.com/dy9OHpS.png" alt="Our Values">
+          </div>
+      </section>
 
-        <div class="games-list" style="margin-top:48px;">
+      <section class="video-outer" id="work">
+          <div class="video-inner">
+              <div class="video-thumb">
+                  <img src="https://i.imgur.com/YBLb5b6.png" alt="Acerus Hero" draggable="false" class="no-drag">
+              </div>
+              <div class="video-text">
+                  <h3>We Are Acerus</h3>
+                  <p>Acerus was built in 2021 to deliver the best ColorBot experience in the market. Over the past 3+ years, we have grown into a trusted name with 5,000+ subscriptions sold in only past few months, serving users around the world with performance that is precise, consistent, and built to stand out. From constant refinement to real results, Acerus is all about giving people a ColorBot they can rely on.</p>
+              </div>
+          </div>
+      </section>
 
-            <div class="game-item open" data-game="0">
-                <div class="game-preview">
-                    <div class="game-toggle">
-                        <svg class="minus" width="12" height="2" viewBox="0 0 12 2"><path d="M0 0h12v2H0z" /></svg>
-                        <svg class="plus" width="8" height="8" viewBox="0 0 8 8"><path fill-rule="evenodd" d="M8 3H5V0H3v3H0v2h3v3h2V5h3z" /></svg>
-                    </div>
-                    <img class="game-preview-icon" src="https://i.imgur.com/f33BBSC.png" alt="Apex Legends logo">
-                    <span class="game-preview-title">Apex Legends</span>
-                </div>
-                <div class="game-expander">
-                    <div class="game-expanded">
-                        <img class="game-img" src="https://i.imgur.com/WGNAVEs.jpeg" alt="Apex Legends banner art">
-                        <div class="game-info">
-                            <img class="game-logo" src="https://i.imgur.com/f33BBSC.png" alt="Apex Legends logo">
-                            <p class="game-desc">Apex support built for sharp tracking, fast reactions, and clean consistency that keeps every session feeling smooth.</p>
-                            <a href="#" class="btn-visit" target="_blank" rel="noopener">Visit website</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <section class="section" id="games">
+          <div class="section-head">
+              <h2 class="section-title">Our Supported Games</h2>
+          </div>
 
-            <div class="game-item" data-game="1">
-                <div class="game-preview">
-                    <div class="game-toggle">
-                        <svg class="minus" width="12" height="2" viewBox="0 0 12 2"><path d="M0 0h12v2H0z" /></svg>
-                        <svg class="plus" width="8" height="8" viewBox="0 0 8 8"><path fill-rule="evenodd" d="M8 3H5V0H3v3H0v2h3v3h2V5h3z" /></svg>
-                    </div>
-                    <img class="game-preview-icon" src="https://i.imgur.com/KeM3NsD.png" alt="Fragpunk logo">
-                    <span class="game-preview-title">Fragpunk</span>
-                </div>
-                <div class="game-expander">
-                    <div class="game-expanded">
-                        <img class="game-img" src="https://i.imgur.com/UsA35H6.jpeg" alt="Fragpunk banner art">
-                        <div class="game-info">
-                            <img class="game-logo" src="https://i.imgur.com/KeM3NsD.png" alt="Fragpunk logo">
-                            <p class="game-desc">Fragpunk support tuned for aggressive play, crisp handling, and a setup that stays locked in under pressure.</p>
-                            <a href="#" class="btn-visit" target="_blank" rel="noopener">Visit website</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <div class="games-list">
+              <article class="game-item open" data-game="0">
+                  <button class="game-preview" type="button">
+                      <span class="game-toggle" aria-hidden="true">
+                          <svg class="minus" width="12" height="2" viewBox="0 0 12 2"><path d="M0 0h12v2H0z"></path></svg>
+                          <svg class="plus" width="8" height="8" viewBox="0 0 8 8"><path fill-rule="evenodd" d="M8 3H5V0H3v3H0v2h3v3h2V5h3z"></path></svg>
+                      </span>
+                      <img class="game-preview-icon" src="https://i.imgur.com/f33BBSC.png" alt="Apex Legends logo">
+                      <span class="game-preview-title">Apex Legends</span>
+                  </button>
+                  <div class="game-expander">
+                      <div class="game-expanded">
+                          <img class="game-img" src="https://i.imgur.com/WGNAVEs.jpeg" alt="Apex Legends banner art">
+                          <div class="game-info">
+                              <img class="game-logo" src="https://i.imgur.com/f33BBSC.png" alt="Apex Legends logo">
+                              <p class="game-desc">Apex support built for sharp tracking, fast reactions, and clean consistency that keeps every session feeling smooth.</p>
+                              <a href="#" class="btn-visit" target="_blank" rel="noopener">Visit website</a>
+                          </div>
+                      </div>
+                  </div>
+              </article>
 
-            <div class="game-item" data-game="2">
-                <div class="game-preview">
-                    <div class="game-toggle">
-                        <svg class="minus" width="12" height="2" viewBox="0 0 12 2"><path d="M0 0h12v2H0z" /></svg>
-                        <svg class="plus" width="8" height="8" viewBox="0 0 8 8"><path fill-rule="evenodd" d="M8 3H5V0H3v3H0v2h3v3h2V5h3z" /></svg>
-                    </div>
-                    <img class="game-preview-icon" src="https://i.imgur.com/KjXjWR6.png" alt="OW2 logo">
-                    <span class="game-preview-title">OW2</span>
-                </div>
-                <div class="game-expander">
-                    <div class="game-expanded">
-                        <img class="game-img" src="https://i.imgur.com/oypy86Y.png" alt="OW2 banner art">
-                        <div class="game-info">
-                            <img class="game-logo" src="https://i.imgur.com/KjXjWR6.png" alt="OW2 logo">
-                            <p class="game-desc">OW2 support made for reliable performance, precise control, and a stable feel that holds up in every match.</p>
-                            <a href="#" class="btn-visit" target="_blank" rel="noopener">Visit website</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+              <article class="game-item" data-game="1">
+                  <button class="game-preview" type="button">
+                      <span class="game-toggle" aria-hidden="true">
+                          <svg class="minus" width="12" height="2" viewBox="0 0 12 2"><path d="M0 0h12v2H0z"></path></svg>
+                          <svg class="plus" width="8" height="8" viewBox="0 0 8 8"><path fill-rule="evenodd" d="M8 3H5V0H3v3H0v2h3v3h2V5h3z"></path></svg>
+                      </span>
+                      <img class="game-preview-icon" src="https://i.imgur.com/KeM3NsD.png" alt="Fragpunk logo">
+                      <span class="game-preview-title">Fragpunk</span>
+                  </button>
+                  <div class="game-expander">
+                      <div class="game-expanded">
+                          <img class="game-img" src="https://i.imgur.com/UsA35H6.jpeg" alt="Fragpunk banner art">
+                          <div class="game-info">
+                              <img class="game-logo" src="https://i.imgur.com/KeM3NsD.png" alt="Fragpunk logo">
+                              <p class="game-desc">Fragpunk support tuned for aggressive play, crisp handling, and a setup that stays locked in under pressure.</p>
+                              <a href="#" class="btn-visit" target="_blank" rel="noopener">Visit website</a>
+                          </div>
+                      </div>
+                  </div>
+              </article>
 
-            <div class="game-item" data-game="3">
-                <div class="game-preview">
-                    <div class="game-toggle">
-                        <svg class="minus" width="12" height="2" viewBox="0 0 12 2"><path d="M0 0h12v2H0z" /></svg>
-                        <svg class="plus" width="8" height="8" viewBox="0 0 8 8"><path fill-rule="evenodd" d="M8 3H5V0H3v3H0v2h3v3h2V5h3z" /></svg>
-                    </div>
-                    <img class="game-preview-icon" src="https://i.imgur.com/JoDNH4y.png" alt="Strinova logo">
-                    <span class="game-preview-title">Strinova</span>
-                </div>
-                <div class="game-expander">
-                    <div class="game-expanded">
-                        <img class="game-img" src="https://i.imgur.com/DlqtNso.png" alt="Strinova banner art">
-                        <div class="game-info">
-                            <img class="game-logo" src="https://i.imgur.com/JoDNH4y.png" alt="Strinova logo">
-                            <p class="game-desc">Strinova support designed for consistent output, responsive performance, and a clean setup that stays dependable.</p>
-                            <a href="#" class="btn-visit" target="_blank" rel="noopener">Visit website</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+              <article class="game-item" data-game="2">
+                  <button class="game-preview" type="button">
+                      <span class="game-toggle" aria-hidden="true">
+                          <svg class="minus" width="12" height="2" viewBox="0 0 12 2"><path d="M0 0h12v2H0z"></path></svg>
+                          <svg class="plus" width="8" height="8" viewBox="0 0 8 8"><path fill-rule="evenodd" d="M8 3H5V0H3v3H0v2h3v3h2V5h3z"></path></svg>
+                      </span>
+                      <img class="game-preview-icon" src="https://i.imgur.com/KjXjWR6.png" alt="OW2 logo">
+                      <span class="game-preview-title">OW2</span>
+                  </button>
+                  <div class="game-expander">
+                      <div class="game-expanded">
+                          <img class="game-img" src="https://i.imgur.com/oypy86Y.png" alt="OW2 banner art">
+                          <div class="game-info">
+                              <img class="game-logo" src="https://i.imgur.com/KjXjWR6.png" alt="OW2 logo">
+                              <p class="game-desc">OW2 support made for reliable performance, precise control, and a stable feel that holds up in every match.</p>
+                              <a href="#" class="btn-visit" target="_blank" rel="noopener">Visit website</a>
+                          </div>
+                      </div>
+                  </div>
+              </article>
 
-            <div class="game-item" data-game="4">
-                <div class="game-preview">
-                    <div class="game-toggle">
-                        <svg class="minus" width="12" height="2" viewBox="0 0 12 2"><path d="M0 0h12v2H0z" /></svg>
-                        <svg class="plus" width="8" height="8" viewBox="0 0 8 8"><path fill-rule="evenodd" d="M8 3H5V0H3v3H0v2h3v3h2V5h3z" /></svg>
-                    </div>
-                    <img class="game-preview-icon" src="https://www.riotgames.com/darkroom/200/9e034a45aac33e6c9b9470dc78092b52:2f6c5a154e4f292d82b9a3574982f749/val-icon.png" alt="Valorant logo">
-                    <span class="game-preview-title">VALORANT</span>
-                </div>
-                <div class="game-expander">
-                    <div class="game-expanded">
-                        <img class="game-img" src="https://www.riotgames.com/darkroom/800/40635d9614ff06b9a662e5365a1c2d94:50617fede6ca38705c0ef21d37e901c5/copy-of-s25a1-riot-games-homepage-product-card-1920x1080.png" alt="VALORANT banner art">
-                        <div class="game-info">
-                            <img class="game-logo" src="https://www.riotgames.com/darkroom/500/510af98d703ecadbdd9e447071888d72:62fc5be47354c861fc4d50b0f25698d2/valorant-logotype.png" alt="VALORANT logo">
-                            <p class="game-desc">VALORANT support built for precision, consistency, and the kind of control that stays reliable when it matters most.</p>
-                            <a href="https://playvalorant.com/" class="btn-visit" target="_blank" rel="noopener">Visit website</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+              <article class="game-item" data-game="3">
+                  <button class="game-preview" type="button">
+                      <span class="game-toggle" aria-hidden="true">
+                          <svg class="minus" width="12" height="2" viewBox="0 0 12 2"><path d="M0 0h12v2H0z"></path></svg>
+                          <svg class="plus" width="8" height="8" viewBox="0 0 8 8"><path fill-rule="evenodd" d="M8 3H5V0H3v3H0v2h3v3h2V5h3z"></path></svg>
+                      </span>
+                      <img class="game-preview-icon" src="https://i.imgur.com/JoDNH4y.png" alt="Strinova logo">
+                      <span class="game-preview-title">Strinova</span>
+                  </button>
+                  <div class="game-expander">
+                      <div class="game-expanded">
+                          <img class="game-img" src="https://i.imgur.com/DlqtNso.png" alt="Strinova banner art">
+                          <div class="game-info">
+                              <img class="game-logo" src="https://i.imgur.com/JoDNH4y.png" alt="Strinova logo">
+                              <p class="game-desc">Strinova support designed for consistent output, responsive performance, and a clean setup that stays dependable.</p>
+                              <a href="#" class="btn-visit" target="_blank" rel="noopener">Visit website</a>
+                          </div>
+                      </div>
+                  </div>
+              </article>
 
-        </div>
-    </div>
+              <article class="game-item" data-game="4">
+                  <button class="game-preview" type="button">
+                      <span class="game-toggle" aria-hidden="true">
+                          <svg class="minus" width="12" height="2" viewBox="0 0 12 2"><path d="M0 0h12v2H0z"></path></svg>
+                          <svg class="plus" width="8" height="8" viewBox="0 0 8 8"><path fill-rule="evenodd" d="M8 3H5V0H3v3H0v2h3v3h2V5h3z"></path></svg>
+                      </span>
+                      <img class="game-preview-icon" src="https://www.riotgames.com/darkroom/200/9e034a45aac33e6c9b9470dc78092b52:2f6c5a154e4f292d82b9a3574982f749/val-icon.png" alt="Valorant logo">
+                      <span class="game-preview-title">VALORANT</span>
+                  </button>
+                  <div class="game-expander">
+                      <div class="game-expanded">
+                          <img class="game-img" src="https://www.riotgames.com/darkroom/800/40635d9614ff06b9a662e5365a1c2d94:50617fede6ca38705c0ef21d37e901c5/copy-of-s25a1-riot-games-homepage-product-card-1920x1080.png" alt="VALORANT banner art">
+                          <div class="game-info">
+                              <img class="game-logo" src="https://www.riotgames.com/darkroom/500/510af98d703ecadbdd9e447071888d72:62fc5be47354c861fc4d50b0f25698d2/valorant-logotype.png" alt="VALORANT logo">
+                              <p class="game-desc">VALORANT support built for precision, consistency, and the kind of control that stays reliable when it matters most.</p>
+                              <a href="https://playvalorant.com/" class="btn-visit" target="_blank" rel="noopener">Visit website</a>
+                          </div>
+                      </div>
+                  </div>
+              </article>
+          </div>
+      </section>
 
-    <div class="section" style="padding-top:0;">
-        <h2 class="section-title">Our Commitments</h2>
-        <div class="commits-grid">
+      <!--
+
+        <section class="section section-tight">
+          <div class="section-head">
+            <h2 class="section-title">Our Commitments</h2>
+          </div>
+
+          <div class="commits-grid">
             <div class="commit-card">
-                <img class="commit-img" src="https://www.riotgames.com/darkroom/800/e15fef442b9b8fd85d900440a0de49e4:ee9109303971ce95c22f84c10f9c500c/social-impact-braum.jpeg" alt="Social Impact">
-                <div class="commit-over"></div>
-                <div class="commit-info">
-                    <h3>Social Impact</h3>
-                    <a href="#" class="commit-link">Learn More</a>
-                </div>
+              <img class="commit-img" src="https://www.riotgames.com/darkroom/800/e15fef442b9b8fd85d900440a0de49e4:ee9109303971ce95c22f84c10f9c500c/social-impact-braum.jpeg" alt="Social Impact">
+              <div class="commit-over"></div>
+              <div class="commit-info">
+                <h3>Social Impact</h3>
+                <a href="#" class="commit-link">Learn More</a>
+              </div>
             </div>
             <div class="commit-card">
-                <img class="commit-img" src="https://www.riotgames.com/darkroom/800/9cb19544c48571abde733fa07d88bbd1:9ac6422e3c3fc98e49d3d088d591eb54/ivern.png" alt="Sustainability">
-                <div class="commit-over"></div>
-                <div class="commit-info">
-                    <h3>Sustainability</h3>
-                    <a href="#" class="commit-link">Learn More</a>
-                </div>
+              <img class="commit-img" src="https://www.riotgames.com/darkroom/800/9cb19544c48571abde733fa07d88bbd1:9ac6422e3c3fc98e49d3d088d591eb54/ivern.png" alt="Sustainability">
+              <div class="commit-over"></div>
+              <div class="commit-info">
+                <h3>Sustainability</h3>
+                <a href="#" class="commit-link">Learn More</a>
+              </div>
             </div>
             <div class="commit-card">
-                <img class="commit-img" src="https://www.riotgames.com/darkroom/800/42814f3a76415ee8a4dcd4b44f74be78:7417f79a5632e63817fda915edd67d76/pride-2023-lolpc.png" alt="Diversity and Inclusion">
-                <div class="commit-over"></div>
-                <div class="commit-info">
-                    <h3>Diversity and Inclusion</h3>
-                    <a href="#" class="commit-link">Learn More</a>
-                </div>
+              <img class="commit-img" src="https://www.riotgames.com/darkroom/800/42814f3a76415ee8a4dcd4b44f74be78:7417f79a5632e63817fda915edd67d76/pride-2023-lolpc.png" alt="Diversity and Inclusion">
+              <div class="commit-over"></div>
+              <div class="commit-info">
+                <h3>Diversity and Inclusion</h3>
+                <a href="#" class="commit-link">Learn More</a>
+              </div>
             </div>
-        </div>
-    </div>
+          </div>
+        </section>
 
-    <div class="global-outer">
-        <div class="global-inner global-layout">
+        -->
+
+        <section class="global-outer">
+          <div class="global-inner global-layout">
             <div class="globe-stage">
-                <canvas id="globe-canvas" class="globe-canvas"></canvas>
-                <div class="globe-vignette"></div>
+              <canvas id="globe-canvas" class="globe-canvas"></canvas>
+              <div class="globe-vignette"></div>
             </div>
 
             <div class="global-copy">
-                <h2 class="section-title">WE ARE GLOBAL</h2>
-                <p>
-                    Our customers are everywhere. We build for players across North America, Europe, LATAM, and beyond.
-                </p>
-                <a href="https://discord.gg/yGMrgzbPX4" class="btn-outline">Checkout our Colorbot</a>
+              <h2 class="section-title">WE ARE GLOBAL</h2>
+              <p>Our customers are everywhere. We build for players across North America, Europe, LATAM, and beyond.</p>
+              <a href="https://discord.gg/yGMrgzbPX4" class="btn-outline">Checkout our Colorbot</a>
             </div>
-        </div>
-    </div>
+          </div>
+        </section>
 
-<div class="careers-section">
-    <p class="sub-label">The Architect of Acerus</p>
-    
-    <div class="open-count">
-        Founder of Acerus: <span>HOJI</span>
-    </div>
-    
-    <p class="careers-desc">
-        As the owner and lead developer of Acerus, Hoji oversees the technical vision and global operations of the platform. Every update and feature is refined under his direction to ensure Acerus remains the most precise and dependable choice in the market.
-    </p>
-    
-    <a href="#" class="btn-outline">LEARN MORE</a>
-    
-    <div class="careers-cards">
-        <a href="#" class="career-card">
-            <img class="career-img" src="https://www.riotgames.com/darkroom/800/149a7c93c610257246c18264c1baebf1:218a2d3cd198603b0e89536ea44b3bb5/lobby-statue-small.jpg" alt="Development">
-            <div class="career-over"></div>
-            <div class="career-label">DEVELOPMENT LOGS</div>
-        </a>
-        <a href="#" class="career-card">
-            <img class="career-img" src="https://www.riotgames.com/darkroom/800/f0700bc49fadd6f15460daeec812d0cd:b4a18cbe1b1aeea6c5d98106607938cb/grc2022-company-photo-1.png" alt="Operations">
-            <div class="career-over"></div>
-            <div class="career-label">GLOBAL OPERATIONS</div>
-        </a>
-    </div>
-</div>
+        <section class="careers-section" id="news">
+            <p class="sub-label">The Architect of Acerus</p>
+            <div class="open-count">Founder of Acerus: <span>HOJI</span></div>
+            <p class="careers-desc">
+                As the owner and lead developer of Acerus, Hoji oversees the technical vision and global operations of the platform. Every update and feature is refined under his direction to ensure Acerus remains the most precise and dependable choice in the market.
+            </p>
+            <a href="https://discord.gg/yGMrgzbPX4" class="btn-outline">LEARN MORE</a>
+        </section>
 
-    <footer>
-        <div class="footer-inner">
+
+
+        <footer>
+          <div class="footer-inner">
             <div class="footer-top">
-                <a href="#" class="footer-logo">
-                    <svg width="24" height="26" viewBox="0 0 185.47 163.51"><path d="M98.77 0L0 45.74l24.61 93.66 18.73-2.3-5.15-58.89 6.15-2.74 10.62 60.2 32.01-3.93-5.69-65 6.09-2.71 11.68 66.23 32.38-3.98-6.23-71.25 6.16-2.74 12.77 72.43 32.01-3.93V19.38L98.77 0zm2.32 142.05l1.63 9.22 73.42 12.24v-30.68l-75.01 9.21-.04.01z" /></svg>
-                    <span class="footer-logo-text">Riot Games</span>
-                </a>
-                <a href="#top" class="footer-top-link">To the Surface &#8593;</a>
+              <a href="#" class="footer-logo">
+                </span>
+                <span class="footer-logo-text">Acerus</span>
+              </a>
+              <a href="#top" class="footer-top-link">To the Surface ↑</a>
             </div>
             <hr class="footer-sep">
             <ul class="footer-links">
-                <li><a href="#">Press</a></li>
-                <li><a href="#">Security</a></li>
-                <li><a href="#">Legal</a></li>
-                <li><a href="#">Leadership</a></li>
-                <li><a href="#">Candidate Privacy</a></li>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Privacy Notice</a></li>
-                <li><a href="#">Player Support</a></li>
-                <li><a href="#">E-Verify</a></li>
-                <li><a href="#">Accessibility</a></li>
-                <li><a href="#">Annual Reports</a></li>
-                <li><a href="#">Peering Information</a></li>
-                <li><a href="#">Community Pact</a></li>
+              <li><a href="#">Press</a></li>
+              <li><a href="#">Security</a></li>
+              <li><a href="#">Legal</a></li>
+              <li><a href="#">Leadership</a></li>
+              <li><a href="#">Candidate Privacy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Privacy Notice</a></li>
+              <li><a href="#">Player Support</a></li>
+              <li><a href="#">E-Verify</a></li>
+              <li><a href="#">Accessibility</a></li>
+              <li><a href="#">Annual Reports</a></li>
+              <li><a href="#">Peering Information</a></li>
+              <li><a href="#">Community Pact</a></li>
             </ul>
             <div class="footer-socials">
-                <a href="https://discord.gg/yGMrgzbPX4" class="soc" target="_blank">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.006 14.006 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.23 10.23 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.419-2.157 2.419z" />
-                    </svg>
-                </a>
+              <a href="https://discord.gg/yGMrgzbPX4" class="soc" target="_blank" rel="noopener" aria-label="Discord">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.006 14.006 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.23 10.23 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.419-2.157 2.419z"/>
+                </svg>
+              </a>
             </div>
             <hr class="footer-sep">
-            <p class="footer-copy">Cookie Preferences &nbsp;&nbsp; &copy; 2026 Acerus, Inc. All Rights Reserved.</p>
-        </div>
-    </footer>
+            <p class="footer-copy">Cookie Preferences &nbsp;&nbsp; © 2026 Acerus, Inc. All Rights Reserved.</p>
+          </div>
+        </footer>
+      </main>
 
-    <script src="assets/load/n1sx0_2s0.js"></script>
-</body>
-</html>
+      <script src="app.js"></script>
+    </body>
+    </html>

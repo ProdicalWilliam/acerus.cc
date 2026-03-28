@@ -1,0 +1,268 @@
+﻿/* ── Sidebar / Side Rail ── */
+
+:root {
+    --rail-w: 62px; /* collapsed: just the icon */
+    --rail-open: 236px; /* expanded on hover */
+}
+
+/* When collapsed, hide all nav items and bottom buttons */
+.side-rail:not(:hover):not(:focus-within):not(.intro) .rail-nav,
+.side-rail:not(:hover):not(:focus-within):not(.intro) .rail-bottom {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.rail-nav,
+.rail-bottom {
+    transition: opacity 0.22s ease;
+}
+
+.side-rail {
+    position: fixed;
+    inset: 18px auto auto 18px; /* top-left only, no bottom stretch */
+    width: var(--rail-w);
+    height: 62px; /* collapsed height = just the icon */
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 28px;
+    background: linear-gradient(180deg, rgba(18, 28, 52, 0.56), rgba(8, 12, 24, 0.38));
+    backdrop-filter: blur(22px) saturate(1.35);
+    -webkit-backdrop-filter: blur(22px) saturate(1.35);
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.34);
+    z-index: 100;
+    overflow: hidden;
+    transition: width 0.28s ease, height 0.28s ease, border-color 0.28s ease, background 0.28s ease, border-radius 0.28s ease;
+}
+
+    /* When hovered, grow back to full sidebar */
+    .side-rail:hover,
+    .side-rail:focus-within,
+    .side-rail.intro {
+        width: var(--rail-open);
+        height: calc(100vh - 36px); /* full height again */
+        border-radius: 28px;
+        border-color: rgba(128, 223, 255, 0.24);
+        background: linear-gradient(180deg, rgba(14, 24, 44, 0.74), rgba(9, 14, 28, 0.55));
+        inset: 18px auto 18px 18px;
+    }
+
+    /* collapsed state: center the icon perfectly */
+    .side-rail:not(:hover):not(:focus-within):not(.intro) {
+        padding: 0 10px;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .side-rail:not(:hover):not(:focus-within):not(.intro) .brand {
+            width: 100%;
+            min-height: 62px;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .side-rail:not(:hover):not(:focus-within):not(.intro) .brand-copy,
+        .side-rail:not(:hover):not(:focus-within):not(.intro) .rail-nav,
+        .side-rail:not(:hover):not(:focus-within):not(.intro) .rail-bottom {
+            display: none;
+        }
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    min-height: 52px;
+    padding: 4px 6px;
+}
+
+.brand-mark,
+.footer-mark {
+    width: 38px;
+    height: 38px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    overflow: hidden; /* keeps the logo clipped inside the icon */
+    background: linear-gradient(145deg, rgba(63, 201, 255, 0.22), rgba(141, 99, 255, 0.18));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    flex: 0 0 auto;
+}
+
+    .brand-mark img,
+    .footer-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        padding: 6px; /* shrink it a bit so it sits nicely inside */
+    }
+
+    .brand-mark svg,
+    .footer-mark svg {
+        width: 20px;
+        height: 20px;
+        fill: #fff;
+    }
+
+.brand-copy {
+    min-width: 0;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    white-space: nowrap;
+}
+
+    .brand-copy strong {
+        display: block;
+        font-size: 12px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+    }
+
+    .brand-copy span {
+        display: block;
+        margin-top: 2px;
+        font-size: 11px;
+        color: var(--muted-2);
+    }
+
+.side-rail:hover .brand-copy,
+.side-rail:focus-within .brand-copy {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+    .side-rail.intro .rail-label,
+    .side-rail.intro .brand-copy {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+.rail-nav,
+.rail-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.rail-item,
+.rail-chip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 46px;
+    border-radius: 18px;
+    text-decoration: none;
+    padding: 0 12px;
+    border: 1px solid transparent;
+    color: var(--text);
+    background: transparent;
+    cursor: pointer;
+    width: 100%;
+    font: inherit;
+    text-align: left;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+    .rail-item:hover,
+    .rail-chip:hover {
+        transform: translateX(2px);
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .rail-item.active {
+        background: linear-gradient(135deg, rgba(63, 201, 255, 0.16), rgba(141, 99, 255, 0.10));
+        border-color: rgba(110, 221, 255, 0.24);
+    }
+
+.rail-icon {
+    width: 22px;
+    height: 22px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+}
+
+    .rail-icon svg {
+        width: 20px;
+        height: 20px;
+        fill: none;
+        stroke: #fff;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        opacity: 0.95;
+    }
+
+.rail-chip.accent .rail-icon svg {
+    stroke: #d8f7ff;
+}
+
+.rail-label {
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.side-rail:hover .rail-label,
+.side-rail:focus-within .rail-label {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ── Sidebar responsive breakpoints ── */
+
+@media (max-width: 840px) {
+    .side-rail {
+        inset: auto 14px 14px 14px;
+        width: calc(100vw - 28px);
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        border-radius: 22px;
+    }
+
+        .side-rail:hover,
+        .side-rail:focus-within {
+            width: calc(100vw - 28px);
+        }
+
+    .brand {
+        min-width: 0;
+    }
+
+    .rail-nav {
+        flex-direction: row;
+        gap: 6px;
+        flex: 1;
+        justify-content: center;
+    }
+
+    .rail-bottom {
+        flex-direction: row;
+        gap: 8px;
+    }
+
+    .rail-item,
+    .rail-chip {
+        width: auto;
+        padding: 0 11px;
+    }
+
+    .side-rail .rail-label,
+    .side-rail .brand-copy {
+        display: none;
+    }
+}
