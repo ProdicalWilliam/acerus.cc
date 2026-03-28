@@ -88,8 +88,7 @@ document.querySelectorAll('.video-thumb').forEach((thumb) => {
   const ctx = canvas.getContext('2d', { alpha: true });
   const TAU = Math.PI * 2;
 
-  // 18,000 is the "Sweet Spot" for density vs performance
-  const POINT_COUNT = 30000; 
+  const POINT_COUNT = 18000; 
   const points = [];
 
   let w = 0, h = 0, dpr = 1;
@@ -171,7 +170,6 @@ document.querySelectorAll('.video-thumb').forEach((thumb) => {
   function draw() {
     ctx.clearRect(0, 0, w, h);
 
-    // Restore the beautiful background gradients
     const sphere = ctx.createRadialGradient(cx - radius * 0.3, cy - radius * 0.3, radius * 0.1, cx, cy, radius * 1.1);
     sphere.addColorStop(0, 'rgba(255,255,255,0.07)');
     sphere.addColorStop(1, 'rgba(0,0,0,0)');
@@ -232,7 +230,6 @@ document.querySelectorAll('.video-thumb').forEach((thumb) => {
   window.addEventListener('resize', resize);
 })();
 
-// Supported games accordion
 document.querySelectorAll('.game-item').forEach((item) => {
   const preview = item.querySelector('.game-preview');
 
