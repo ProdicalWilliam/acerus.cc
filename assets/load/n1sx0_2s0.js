@@ -88,7 +88,7 @@ document.querySelectorAll('.video-thumb').forEach((thumb) => {
   const ctx = canvas.getContext('2d', { alpha: true });
   const TAU = Math.PI * 2;
 
-  const POINT_COUNT = 18000; 
+  const POINT_COUNT = 1000; 
   const points = [];
 
   let w = 0, h = 0, dpr = 1;
