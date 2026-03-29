@@ -442,6 +442,50 @@
         }
         }
 
+        // Lock down every image on the page without changing layout
+function lockImage(img) {
+  if (!img || img.dataset.imageLocked === '1') return;
+
+  img.dataset.imageLocked = '1';
+  img.setAttribute('draggable', 'false');
+  img.addEventListener('dragstart', (e) => e.preventDefault());
+  img.addEventListener('contextmenu', (e) => e.preventDefault());
+}
+
+// Lock existing images
+document.querySelectorAll('img').forEach(lockImage);
+
+// Lock future images too
+const imageObserver = new MutationObserver((mutations) => {
+  for (const mutation of mutations) {
+    mutation.addedNodes.forEach((node) => {
+      if (node.nodeType !== 1) return;
+
+      if (node.tagName === 'IMG') {
+        lockImage(node);
+      } else {
+        node.querySelectorAll?.('img').forEach(lockImage);
+      }
+    });
+  }
+});
+
+imageObserver.observe(document.documentElement, {
+  childList: true,
+  subtree: true,
+});
+
+// Block right-click on any image, even inside wrappers
+document.addEventListener(
+  'contextmenu',
+  (e) => {
+    if (e.target.closest && e.target.closest('img')) {
+      e.preventDefault();
+    }
+  },
+  true
+);
+
         function toggleDropdown(e) {
         document.querySelectorAll('.dropdown-menu').forEach(m => { if (m !== e.nextElementSibling) m.classList.add('hidden') });
         e.nextElementSibling.classList.toggle('hidden');
