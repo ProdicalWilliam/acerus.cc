@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acerus | Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/xCe4hEC.png">
+  <link rel="stylesheet" href="login.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow-cyan"></div>
+  <div class="bg-glow bg-glow-blue"></div>
+
+  <div class="card-wrapper">
+    <div class="card-reveal-wrapper">
+      <div class="card">
+        <div class="terminal-bar">
+          <div class="terminal-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="terminal-title">Acerus Portal</div>
+        </div>
+
+        <div class="card-content">
+          <div class="card-left">
+            <div class="card-left-bg"></div>
+
+            <a href="index.html" class="card-left-brand">
+              <img src="https://i.imgur.com/k61NTqG.png" alt="Acerus">
+              <span>Acerus</span>
+            </a>
+
+            <div class="card-left-text">
+              <h2>Precision<br><span>Unlocked</span></h2>
+              <p>Enter your license key to access your Acerus dashboard and manage your subscription.</p>
+            </div>
+
+            <img class="neon-img" src="https://i.imgur.com/ccw0QPa.png" alt="Neon">
+          </div>
+
+          <div class="card-right">
+            <p class="form-eyebrow">Acerus Portal</p>
+            <h1 class="form-title">Sign In</h1>
+            <p class="form-sub">Enter your license key to access<br>your Acerus dashboard.</p>
+
+            <form onsubmit="handleLogin(event)">
+              <div class="field">
+                <label for="licenseKey">License Key</label>
+                <div class="field-wrap">
+                  <span class="field-icon">
+                    <svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+                  </span>
+                  <input
+                    type="text"
+                    id="licenseKey"
+                    placeholder="ACRS-XXXX-XXXX-XXXX-XXXX"
+                    autocomplete="off"
+                    spellcheck="false"
+                    required
+                  >
+                </div>
+              </div>
+
+              <div class="key-hint">
+                <div class="key-hint-dot"></div>
+                <span>Your license key was sent to your email after purchase. Check your Discord DMs if you purchased via Discord.</span>
+              </div>
+
+              <button type="submit" class="btn-submit">Access Dashboard</button>
+
+              <div class="form-footer">
+                <a href="products.html" class="form-footer-link">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                  Sign Up
+                </a>
+                <span class="form-footer-text">
+                  © 2026 · Acerus &nbsp;·&nbsp;
+                  <a href="#">Privacy &amp; Terms</a> &nbsp;/&nbsp;
+                  <a href="https://discord.gg/yGMrgzbPX4">Contact Support</a>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="ob.js"></script>
+</body>
+</html>

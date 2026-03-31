@@ -18,6 +18,366 @@
     <link rel="stylesheet" href="sidebar.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="products.css">
+    
+    <style>
+        /* CINEMATIC ANIMATIONS */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+
+        /* HERO LAYOUT */
+        .products-hero {
+            min-height: 100svh;
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+            align-items: stretch;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            background: #08080f;
+            position: relative;
+            isolation: isolate;
+        }
+
+        .products-hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: #0077ff;
+            clip-path: polygon(58% 0%, 100% 0%, 100% 100%, 48% 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .products-hero-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 18px;
+            padding: 120px 56px 84px 124px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .products-hero-visual {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .products-hero-visual img {
+            position: relative;
+            z-index: 1;
+            width: min(72vw, 1100px);
+            max-height: calc(100% + 40px);
+            height: auto;
+            object-fit: contain;
+            object-position: bottom center;
+        }
+
+        .products-hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(52px, 7vw, 100px);
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-top: 12px;
+        }
+
+        .products-hero .hero-desc {
+            margin-top: 18px;
+            max-width: 480px;
+        }
+
+        /* REVIEWS WIDGET CSS - LAYERED ON THE BLUE SIDE */
+        .reviews-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            z-index: 0; 
+            display: flex;
+            align-items: center; /* PERFECTLY CENTERS IT TOP AND BOTTOM */
+            justify-content: center;
+            clip-path: polygon(58% 0%, 100% 0%, 100% 100%, 48% 100%);
+            -webkit-clip-path: polygon(58% 0%, 100% 0%, 100% 100%, 48% 100%);
+            opacity: 0.9;
+            pointer-events: none; /* Let clicks pass through empty space */
+        }
+
+        .reviews-track {
+            display: grid;
+            grid-template-rows: repeat(4, 1fr);
+            grid-auto-flow: column;
+            grid-column-gap: 24px; 
+            grid-row-gap: 24px; 
+            height: 100%;
+            width: max-content;
+            padding: 30px 0; /* Add slight internal padding to not hug the extreme edges */
+            pointer-events: none;
+        }
+
+        .review-card {
+            width: 360px; 
+            height: 100%;
+            min-height: 160px;
+            max-height: 200px;
+            background: rgba(15, 15, 15, 0.65); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 12px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            overflow: hidden;
+            cursor: default;
+            pointer-events: auto; /* Re-enable pointer events strictly for the cards */
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .review-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #111;
+        }
+
+        .review-meta {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .review-author {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .review-date {
+            color: #888;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        .review-content {
+            color: #d4d4d4;
+            font-size: 14px;
+            line-height: 1.5;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 4; 
+            -webkit-box-orient: vertical;
+        }
+
+        /* TABS AND SECTIONS RESTORED CSS */
+        .products-wrap {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 64px 56px 88px;
+        }
+
+        .product-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 0;
+        }
+
+        .ptab {
+            background: transparent;
+            border: 0;
+            color: var(--muted-2);
+            font: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .ptab:hover { color: var(--text); }
+        .ptab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+        .product-panel { display: none; }
+        .product-panel.active { display: block; }
+
+        .product-header-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 32px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .product-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid rgba(63, 201, 255, 0.35);
+            border-radius: 999px;
+            padding: 4px 12px;
+            margin-bottom: 14px;
+        }
+
+        .product-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(36px, 4.5vw, 58px);
+            text-transform: uppercase;
+            line-height: 0.95;
+            letter-spacing: -0.01em;
+            margin-bottom: 12px;
+        }
+
+        .product-tagline {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.65;
+            max-width: 52ch;
+            font-weight: 300;
+        }
+
+        .features-pricing-row {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .block-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--muted-2);
+            margin-bottom: 16px;
+        }
+
+        .feat-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px 24px;
+        }
+
+        .feat-list.small {
+            grid-template-columns: 1fr;
+            gap: 6px;
+        }
+
+        .feat-list li {
+            font-size: 14px;
+            color: var(--muted);
+            padding-left: 14px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .feat-list li::before {
+            content: '–';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .pricing-block {
+            position: sticky;
+            top: 24px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(176, 226, 255, 0.1);
+            border-radius: 20px;
+            padding: 28px;
+        }
+
+        .price-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin-bottom: 16px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            border-radius: 10px;
+            transition: background 0.15s ease;
+        }
+
+        .price-row:hover { background: rgba(255,255,255,0.03); }
+        .price-row.highlighted {
+            background: rgba(63, 201, 255, 0.07);
+            border: 1px solid rgba(63, 201, 255, 0.18);
+        }
+
+        .price-label { font-size: 13px; color: var(--muted-2); }
+        .price-val { font-family: 'Oswald', sans-serif; font-size: 20px; color: #fff; }
+        .price-strike { text-decoration: line-through; color: var(--muted-2); }
+        .pricing-note { font-size: 12px; color: var(--muted-2); line-height: 1.6; }
+
+        .payment-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .payment-chip {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            padding: 5px 11px;
+            border-radius: 999px;
+            border: 1px solid rgba(176, 226, 255, 0.14);
+            background: rgba(255,255,255,0.03);
+            color: var(--muted);
+        }
+
+        @media (max-width: 900px) {
+            .features-pricing-row { grid-template-columns: 1fr; }
+            .pricing-block { position: static; }
+        }
+
+        @media (max-width: 840px) {
+            .products-hero { padding: 100px 24px 48px; }
+            .products-hero-content { padding: 120px 24px 84px; }
+            .products-wrap { padding-left: 24px; padding-right: 24px; }
+            .feat-list { grid-template-columns: 1fr; }
+            .product-header-row { flex-direction: column; }
+        }
+    </style>
 </head>
 <body>
 
@@ -58,7 +418,7 @@
                 </span>
                 <span class="rail-label">Search</span>
             </button>
-            <a href="#" class="rail-chip accent">
+            <a href="/login.html" class="rail-chip accent">
                 <span class="rail-icon">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.4 9.7 8 10 4.6-.3 8-5 8-10V6l-8-4Zm1 6 5 5-7 7-4-4 2-2 2 2 5-5-3-3 2-2Z" /></svg>
                 </span>
@@ -71,25 +431,30 @@
 
         <section class="products-hero" id="top">
             <div class="products-hero-content">
-                <p class="eyebrow">What We Offer</p>
-                <h1>Our Products</h1>
-                <p class="hero-desc">Every build is unique. Every purchase is encrypted. Built for performance, priced for everyone.</p>
+                <p class="eyebrow reveal-up">What We Offer</p>
+                <h1 class="reveal-up reveal-delay-1">Our Products</h1>
+                <p class="hero-desc reveal-up reveal-delay-2">Every build is unique. Every purchase is encrypted. Built for performance, priced for everyone.</p>
+            </div>
+
+            <div class="reviews-wrapper">
+                <div class="reviews-track" id="reviews-track-hero">
+                    </div>
             </div>
 
             <div class="products-hero-visual" aria-hidden="true">
-                <img src="https://i.imgur.com/PGxi4Sp.png" alt="">
+                <img src="https://i.imgur.com/PGxi4Sp.png" alt="Character">
             </div>
         </section>
 
         <div class="products-wrap">
 
-            <div class="product-tabs">
+            <div class="product-tabs reveal-up">
                 <button class="ptab active" data-tab="triggerbot">Triggerbot</button>
                 <button class="ptab" data-tab="v3">Acerus V3</button>
             </div>
 
             <div class="product-panel active" id="tab-triggerbot">
-                <div class="product-header-row">
+                <div class="product-header-row reveal-up reveal-delay-1">
                     <div>
                         <span class="product-badge">Now Public</span>
                         <h2 class="product-name">Acerus Triggerbot</h2>
@@ -99,101 +464,19 @@
                 </div>
 
                 <div class="features-pricing-row">
-                    <div class="features-block">
-                        <h3 class="block-label">Live Interface</h3>
-
-                        <div class="w-full h-[600px] flex bg-[#000000] border border-[#1a1a1a] rounded-xl shadow-2xl overflow-hidden relative select-none ring-1 ring-white/5 font-['JetBrains_Mono',monospace]">
-                            <aside class="w-[220px] flex-shrink-0 border-r border-[#161616] flex flex-col bg-[#020202]">
-                                <div class="h-16 px-5 flex items-center justify-between border-b border-[#161616]">
-                                    <h1 class="text-lg font-semibold uppercase tracking-tight text-[#e5e5e5] font-['Orbitron',sans-serif]" style="transform: scaleX(1.1); transform-origin: left;">Acerus</h1>
-                                    <span class="text-xs font-light text-[#a78bfa] border border-[#a78bfa]/30 bg-[#a78bfa]/5 px-1.5 py-0.5 rounded shadow-[0_0_8px_rgba(167,139,250,0.15)]">V3.2.0</span>
-                                </div>
-                                <nav class="flex-1 overflow-y-auto py-5 px-3 space-y-6">
-                                    <div>
-                                        <h2 class="text-xs font-light tracking-widest text-[#666666] mb-2 px-3 uppercase m-0">Aim</h2>
-                                        <ul class="space-y-0.5 p-0 m-0 list-none">
-                                            <li><a href="#" class="block px-3 py-1.5 text-sm font-light text-[#999999] hover:text-[#bbbbbb] transition-colors rounded-md hover:bg-[#111111] no-underline">Aimbot</a></li>
-                                            <li><a href="#" class="block px-3 py-1.5 text-sm font-light text-[#999999] hover:text-[#bbbbbb] transition-colors rounded-md hover:bg-[#111111] no-underline">Flick Bot</a></li>
-                                            <li><a href="#" class="block px-3 py-1.5 text-sm font-light text-[#999999] hover:text-[#bbbbbb] transition-colors rounded-md hover:bg-[#111111] no-underline">Sticky Aim</a></li>
-                                            <li><a href="#" class="block px-3 py-1.5 text-sm font-light text-[#999999] hover:text-[#bbbbbb] transition-colors rounded-md hover:bg-[#111111] no-underline">Recoil Control</a></li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <h2 class="text-xs font-light tracking-widest text-[#666666] mb-2 px-3 uppercase m-0">Auto Shoot</h2>
-                                        <ul class="space-y-0.5 p-0 m-0 list-none">
-                                            <li class="relative">
-                                                <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-[#a78bfa] rounded-r-full shadow-[0_0_8px_rgba(167,139,250,0.6)]"></div>
-                                                <a href="#" class="block px-3 pl-4 py-1.5 text-sm font-light text-[#a78bfa] bg-gradient-to-r from-[#a78bfa]/10 to-transparent rounded-r-md no-underline">Triggerbot</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <h2 class="text-xs font-light tracking-widest text-[#666666] mb-2 px-3 uppercase m-0">System</h2>
-                                        <ul class="space-y-0.5 p-0 m-0 list-none">
-                                            <li><a href="#" class="block px-3 py-1.5 text-sm font-light text-[#999999] hover:text-[#bbbbbb] transition-colors rounded-md hover:bg-[#111111] no-underline">Themes</a></li>
-                                            <li><a href="#" class="block px-3 py-1.5 text-sm font-light text-[#999999] hover:text-[#bbbbbb] transition-colors rounded-md hover:bg-[#111111] no-underline">Settings</a></li>
-                                            <li><a href="#" class="block px-3 py-1.5 text-sm font-light text-[#999999] hover:text-[#bbbbbb] transition-colors rounded-md hover:bg-[#111111] no-underline">Configs</a></li>
-                                            <li><a href="#" class="block px-3 py-1.5 text-sm font-light text-[#999999] hover:text-[#bbbbbb] transition-colors rounded-md hover:bg-[#111111] no-underline">About</a></li>
-                                        </ul>
-                                    </div>
-                                </nav>
-                            </aside>
-
-                            <main class="flex-1 flex flex-col min-w-0 bg-gradient-to-br from-[#020202] to-[#000000]">
-                                <div class="flex-1 overflow-y-auto p-8 max-w-4xl relative">
-                                    <header class="flex items-center justify-between gap-4 mb-8 pb-5 border-b border-[#161616]">
-                                        <h2 class="text-xl font-semibold uppercase tracking-tight text-[#e5e5e5] font-['Orbitron',sans-serif] m-0" style="transform: scaleX(1.1); transform-origin: left;">Triggerbot</h2>
-                                        <div class="flex items-center gap-4">
-                                            <button class="px-3 py-1 bg-[#111111] border border-[#222222] rounded text-xs font-light text-[#999999] hover:bg-[#1a1a1a] hover:text-[#bbbbbb] transition-colors flex items-center gap-2 cursor-pointer">Mouse4</button>
-                                            <div onclick="toggleSwitch(this)" class="w-10 h-5 bg-[#2d1b4e] border border-[#3c2468] shadow-[inset_0_0_10px_rgba(45,27,78,0.5)] rounded-full flex items-center px-[2px] cursor-pointer transition-colors duration-300">
-                                                <div class="w-3.5 h-3.5 bg-[#a78bfa] rounded-full shadow-[0_0_8px_rgba(167,139,250,0.8)] transform translate-x-[20px] transition-transform duration-300"></div>
-                                            </div>
-                                        </div>
-                                    </header>
-
-                                    <div class="space-y-6">
-                                        <div class="bg-[#050505] border border-[#161616] rounded-xl overflow-visible shadow-2xl relative">
-                                            <div class="px-5 py-4 flex items-center gap-4">
-                                                <h3 class="text-xs font-light tracking-widest text-[#777777] uppercase whitespace-nowrap m-0">General</h3>
-                                                <div class="flex-1 h-[1px] bg-gradient-to-r from-[#1a1a1a] to-transparent"></div>
-                                            </div>
-                                            <div class="px-5 pb-1">
-                                                <div class="flex items-center justify-between py-3.5 border-b border-[#161616] last:border-0"><span class="text-sm font-light text-[#999999]">Toggle Mode</span><div onclick="toggleSwitch(this)" class="w-10 h-5 bg-[#111111] border border-[#222222] rounded-full flex items-center px-[2px] cursor-pointer transition-colors duration-300"><div class="w-3.5 h-3.5 bg-[#444444] rounded-full transform translate-x-0 transition-transform duration-300"></div></div></div>
-                                                <div class="flex items-center justify-between py-3.5 border-b border-[#161616] last:border-0"><span class="text-sm font-light text-[#999999]">Anti-Astra</span><div onclick="toggleSwitch(this)" class="w-10 h-5 bg-[#111111] border border-[#222222] rounded-full flex items-center px-[2px] cursor-pointer transition-colors duration-300"><div class="w-3.5 h-3.5 bg-[#444444] rounded-full transform translate-x-0 transition-transform duration-300"></div></div></div>
-                                                <div class="flex items-center justify-between py-3.5 border-b border-[#161616] last:border-0"><span class="text-sm font-light text-[#999999]">Anti-Phoenix</span><div onclick="toggleSwitch(this)" class="w-10 h-5 bg-[#111111] border border-[#222222] rounded-full flex items-center px-[2px] cursor-pointer transition-colors duration-300"><div class="w-3.5 h-3.5 bg-[#444444] rounded-full transform translate-x-0 transition-transform duration-300"></div></div></div>
-                                            </div>
-                                        </div>
-
-                                        <div class="bg-[#050505] border border-[#161616] rounded-xl overflow-visible shadow-2xl relative">
-                                            <div class="px-5 py-4 flex items-center gap-4">
-                                                <h3 class="text-xs font-light tracking-widest text-[#777777] uppercase whitespace-nowrap m-0">Configuration</h3>
-                                                <div class="flex-1 h-[1px] bg-gradient-to-r from-[#1a1a1a] to-transparent"></div>
-                                            </div>
-                                            <div class="px-5 pb-1">
-                                                <div class="flex items-center justify-between py-3.5 border-b border-[#161616] last:border-0 relative dropdown-container">
-                                                    <span class="text-sm font-light text-[#999999]">Color</span>
-                                                    <div onclick="toggleDropdown(this)" class="bg-[#0a0a0a] border border-[#1f1f1f] rounded px-3 py-1.5 flex items-center justify-between gap-3 cursor-pointer hover:bg-[#111111] transition-colors w-32 relative z-20"><span class="text-sm font-light text-[#bbbbbb] dropdown-val">Purple</span><iconify-icon icon="solar:alt-arrow-down-linear" width="14" height="14" class="text-[#666666] pointer-events-none"></iconify-icon></div>
-                                                    <div class="dropdown-menu hidden absolute top-12 right-0 w-32 bg-[#050505] border border-[#1f1f1f] rounded-md shadow-[0_4px_20px_rgba(0,0,0,0.5)] z-30 overflow-hidden py-1"><div onclick="selectOption(this, 'Purple')" class="px-3 py-1.5 text-sm font-light text-[#999999] hover:text-[#bbbbbb] hover:bg-[#111111] cursor-pointer transition-colors">Purple</div><div onclick="selectOption(this, 'Yellow')" class="px-3 py-1.5 text-sm font-light text-[#999999] hover:text-[#bbbbbb] hover:bg-[#111111] cursor-pointer transition-colors">Yellow</div><div onclick="selectOption(this, 'Red')" class="px-3 py-1.5 text-sm font-light text-[#999999] hover:text-[#bbbbbb] hover:bg-[#111111] cursor-pointer transition-colors">Red</div><div onclick="selectOption(this, 'Custom')" class="px-3 py-1.5 text-sm font-light text-[#999999] hover:text-[#bbbbbb] hover:bg-[#111111] cursor-pointer transition-colors">Custom</div></div>
-                                                </div>
-                                                <div class="flex items-center justify-between py-3.5 border-b border-[#161616] last:border-0 relative dropdown-container">
-                                                    <span class="text-sm font-light text-[#999999]">Click Method</span>
-                                                    <div onclick="toggleDropdown(this)" class="bg-[#0a0a0a] border border-[#1f1f1f] rounded px-3 py-1.5 flex items-center justify-between gap-3 cursor-pointer hover:bg-[#111111] transition-colors w-32 relative z-20"><span class="text-sm font-light text-[#bbbbbb] dropdown-val">Razer</span><iconify-icon icon="solar:alt-arrow-down-linear" width="14" height="14" class="text-[#666666] pointer-events-none"></iconify-icon></div>
-                                                    <div class="dropdown-menu hidden absolute top-12 right-0 w-32 bg-[#050505] border border-[#1f1f1f] rounded-md shadow-[0_4px_20px_rgba(0,0,0,0.5)] z-30 overflow-hidden py-1"><div onclick="selectOption(this, 'Razer')" class="px-3 py-1.5 text-sm font-light text-[#999999] hover:text-[#bbbbbb] hover:bg-[#111111] cursor-pointer transition-colors">Razer</div><div onclick="selectOption(this, 'Logitech')" class="px-3 py-1.5 text-sm font-light text-[#999999] hover:text-[#bbbbbb] hover:bg-[#111111] cursor-pointer transition-colors">Logitech</div><div onclick="selectOption(this, 'Corsair')" class="px-3 py-1.5 text-sm font-light text-[#999999] hover:text-[#bbbbbb] hover:bg-[#111111] cursor-pointer transition-colors">Corsair</div></div>
-                                                </div>
-                                                <div class="flex items-center justify-between py-3.5 border-b border-[#161616] last:border-0 relative group"><span class="text-sm font-light text-[#999999] w-32 flex-shrink-0 pointer-events-none">View Size</span><div class="flex-1 flex items-center gap-4 max-w-[280px] ml-auto relative"><input type="range" min="0" max="100" value="80" class="absolute inset-0 w-[calc(100%-2.5rem)] h-full opacity-0 cursor-pointer z-10" oninput="updateSlider(this)"><div class="flex-1 h-[2px] bg-[#222222] rounded-full relative flex items-center w-full pointer-events-none transition-colors group-hover:bg-[#2a2a2a]"><div class="slider-fill absolute left-0 h-[2px] bg-[#a78bfa] rounded-full" style="width: 80%;"></div><div class="slider-thumb absolute w-3 h-3 bg-[#c4b5fd] rounded-full shadow-[0_0_12px_rgba(167,139,250,0.6)]" style="left: 80%; transform: translateX(-50%);"></div></div><span class="slider-text w-8 text-right text-xs font-light text-[#777777]">80</span></div></div>
-                                                <div class="flex items-center justify-between py-3.5 border-b border-[#161616] last:border-0 relative group"><span class="text-sm font-light text-[#999999] w-32 flex-shrink-0 pointer-events-none">Dilation</span><div class="flex-1 flex items-center gap-4 max-w-[280px] ml-auto relative"><input type="range" min="0" max="100" value="8" class="absolute inset-0 w-[calc(100%-2.5rem)] h-full opacity-0 cursor-pointer z-10" oninput="updateSlider(this)"><div class="flex-1 h-[2px] bg-[#222222] rounded-full relative flex items-center w-full pointer-events-none transition-colors group-hover:bg-[#2a2a2a]"><div class="slider-fill absolute left-0 h-[2px] bg-[#a78bfa] rounded-full" style="width: 8%;"></div><div class="slider-thumb absolute w-3 h-3 bg-[#c4b5fd] rounded-full shadow-[0_0_12px_rgba(167,139,250,0.6)]" style="left: 8%; transform: translateX(-50%);"></div></div><span class="slider-text w-8 text-right text-xs font-light text-[#777777]">8</span></div></div>
-                                                <div class="flex items-center justify-between py-3.5 border-b border-[#161616] last:border-0 relative group"><span class="text-sm font-light text-[#999999] w-32 flex-shrink-0 pointer-events-none">Reaction Time</span><div class="flex-1 flex items-center gap-4 max-w-[280px] ml-auto relative"><input type="range" min="0" max="100" value="0" class="absolute inset-0 w-[calc(100%-2.5rem)] h-full opacity-0 cursor-pointer z-10" oninput="updateSlider(this)"><div class="flex-1 h-[2px] bg-[#222222] rounded-full relative flex items-center w-full pointer-events-none transition-colors group-hover:bg-[#2a2a2a]"><div class="slider-fill absolute left-0 h-[2px] bg-[#a78bfa] rounded-full" style="width: 0%;"></div><div class="slider-thumb absolute w-3 h-3 bg-[#c4b5fd] rounded-full shadow-[0_0_12px_rgba(167,139,250,0.6)]" style="left: 0%; transform: translateX(-50%);"></div></div><span class="slider-text w-8 text-right text-xs font-light text-[#777777]">0</span></div></div>
-                                                <div class="flex items-center justify-between py-3.5 border-b border-[#161616] last:border-0 relative group"><span class="text-sm font-light text-[#999999] w-32 flex-shrink-0 pointer-events-none">Fire Delay</span><div class="flex-1 flex items-center gap-4 max-w-[280px] ml-auto relative"><input type="range" min="0" max="100" value="0" class="absolute inset-0 w-[calc(100%-2.5rem)] h-full opacity-0 cursor-pointer z-10" oninput="updateSlider(this)"><div class="flex-1 h-[2px] bg-[#222222] rounded-full relative flex items-center w-full pointer-events-none transition-colors group-hover:bg-[#2a2a2a]"><div class="slider-fill absolute left-0 h-[2px] bg-[#a78bfa] rounded-full" style="width: 0%;"></div><div class="slider-thumb absolute w-3 h-3 bg-[#c4b5fd] rounded-full shadow-[0_0_12px_rgba(167,139,250,0.6)]" style="left: 0%; transform: translateX(-50%);"></div></div><span class="slider-text w-8 text-right text-xs font-light text-[#777777]">0</span></div></div>
-                                                <div class="flex items-center justify-between py-3.5 border-b border-[#161616] last:border-0 relative group"><span class="text-sm font-light text-[#999999] w-32 flex-shrink-0 pointer-events-none">Release Delay</span><div class="flex-1 flex items-center gap-4 max-w-[280px] ml-auto relative"><input type="range" min="0" max="100" value="10" class="absolute inset-0 w-[calc(100%-2.5rem)] h-full opacity-0 cursor-pointer z-10" oninput="updateSlider(this)"><div class="flex-1 h-[2px] bg-[#222222] rounded-full relative flex items-center w-full pointer-events-none transition-colors group-hover:bg-[#2a2a2a]"><div class="slider-fill absolute left-0 h-[2px] bg-[#a78bfa] rounded-full" style="width: 10%;"></div><div class="slider-thumb absolute w-3 h-3 bg-[#c4b5fd] rounded-full shadow-[0_0_12px_rgba(167,139,250,0.6)]" style="left: 10%; transform: translateX(-50%);"></div></div><span class="slider-text w-8 text-right text-xs font-light text-[#777777]">10</span></div></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </main>
-                        </div>
+                    <div class="features-block reveal-up reveal-delay-2">
+                        <h3 class="block-label" style="margin-bottom:28px">Highlights</h3>
+                        <ul class="feat-list">
+                            <li>Instant capture speeds</li>
+                            <li>Bypass advanced anti-cheats</li>
+                            <li>Customizable delay profiles</li>
+                            <li>Lightweight memory footprint</li>
+                            <li>Secure cloud configs</li>
+                            <li>24/7 Priority Support</li>
+                        </ul>
                     </div>
 
-                    <div class="pricing-block">
+                    <div class="pricing-block reveal-up reveal-delay-3">
                         <h3 class="block-label">Pricing</h3>
                         <div class="price-list">
                             <div class="price-row"><span class="price-label">Daily</span><span class="price-val">$5</span></div>
@@ -225,126 +508,15 @@
 
                 <div class="features-pricing-row">
                     <div class="features-block">
-                        <h3 class="block-label">Live Interface</h3>
-
-                        <div class="w-full h-[720px] flex bg-[#000000] border border-[#1a1a1a] rounded-xl shadow-2xl overflow-hidden relative select-none ring-1 ring-white/5 font-['JetBrains_Mono',monospace]">
-                            <aside class="w-[200px] flex-shrink-0 border-r border-[#111111] flex flex-col bg-[#020202]">
-                                <div class="h-14 px-4 flex items-center justify-between border-b border-[#111111]">
-                                    <h1 class="text-sm font-semibold uppercase tracking-tight text-[#e5e5e5] font-['Orbitron',sans-serif]" style="transform: scaleX(1.1); transform-origin: left;">Acerus</h1>
-                                    <span class="text-[10px] font-light text-[#a78bfa] border border-[#a78bfa]/30 bg-[#a78bfa]/5 px-1.5 py-0.5 rounded shadow-[0_0_8px_rgba(167,139,250,0.15)]">V3.2.0</span>
-                                </div>
-                                <nav class="flex-1 overflow-y-auto py-4 px-2 space-y-4">
-                                    <div>
-                                        <h2 class="text-[10px] font-light tracking-widest text-[#555555] mb-1.5 px-3 uppercase">Aim</h2>
-                                        <ul class="space-y-0.5">
-                                            <li class="relative"><div class="absolute left-0 top-0 bottom-0 w-[2px] bg-[#a78bfa] rounded-r-full shadow-[0_0_8px_rgba(167,139,250,0.6)]"></div><a href="#" class="block px-3 pl-4 py-1.5 text-xs font-light text-[#a78bfa] bg-[#a78bfa]/[0.08] rounded-md no-underline">Aimbot</a></li>
-                                            <li><a href="#" class="block px-3 py-1.5 text-xs font-light text-[#999999] hover:text-[#bbbbbb] transition-colors rounded-md hover:bg-[#111111] no-underline">Flick Bot</a></li>
-                                            <li><a href="#" class="block px-3 py-1.5 text-xs font-light text-[#999999] hover:text-[#bbbbbb] transition-colors rounded-md hover:bg-[#111111] no-underline">Sticky Aim</a></li>
-                                            <li><a href="#" class="block px-3 py-1.5 text-xs font-light text-[#999999] hover:text-[#bbbbbb] transition-colors rounded-md hover:bg-[#111111] no-underline">Recoil Control</a></li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <h2 class="text-[10px] font-light tracking-widest text-[#555555] mb-1.5 px-3 uppercase">Auto Shoot</h2>
-                                        <ul class="space-y-0.5"><li><a href="#" class="block px-3 py-1.5 text-xs font-light text-[#999999] hover:text-[#bbbbbb] transition-colors rounded-md hover:bg-[#111111] no-underline">Triggerbot</a></li></ul>
-                                    </div>
-                                    <div>
-                                        <h2 class="text-[10px] font-light tracking-widest text-[#555555] mb-1.5 px-3 uppercase">System</h2>
-                                        <ul class="space-y-0.5">
-                                            <li><a href="#" class="block px-3 py-1.5 text-xs font-light text-[#999999] hover:text-[#bbbbbb] transition-colors rounded-md hover:bg-[#111111] no-underline">Themes</a></li>
-                                            <li><a href="#" class="block px-3 py-1.5 text-xs font-light text-[#999999] hover:text-[#bbbbbb] transition-colors rounded-md hover:bg-[#111111] no-underline">Settings</a></li>
-                                            <li><a href="#" class="block px-3 py-1.5 text-xs font-light text-[#999999] hover:text-[#bbbbbb] transition-colors rounded-md hover:bg-[#111111] no-underline">Configs</a></li>
-                                            <li><a href="#" class="block px-3 py-1.5 text-xs font-light text-[#999999] hover:text-[#bbbbbb] transition-colors rounded-md hover:bg-[#111111] no-underline">About</a></li>
-                                        </ul>
-                                    </div>
-                                </nav>
-                            </aside>
-
-                            <main class="flex-1 flex flex-col min-w-0 bg-[#020202]">
-                                <div class="flex-1 overflow-y-auto p-6 max-w-[800px] w-full mx-auto relative">
-                                    <header class="flex items-center justify-between gap-4 mb-6">
-                                        <h2 class="text-xl font-semibold uppercase tracking-tight text-[#e5e5e5] font-['Orbitron',sans-serif] m-0" style="transform: scaleX(1.1); transform-origin: left;">Aimbot</h2>
-                                        <div class="flex items-center gap-3">
-                                            <button class="px-2.5 py-1 bg-[#111111] border border-[#222222] rounded text-[10px] font-light text-[#999999] hover:bg-[#1a1a1a] hover:text-[#bbbbbb] transition-colors cursor-pointer">Mouse4</button>
-                                            <div onclick="toggleSwitch(this)" class="w-8 h-4 bg-[#111111] border border-[#222222] rounded-full flex items-center px-[2px] cursor-pointer transition-colors duration-300"><div class="w-2.5 h-2.5 bg-[#444444] rounded-full transform translate-x-0 transition-transform duration-300"></div></div>
-                                        </div>
-                                    </header>
-
-                                    <div class="space-y-4">
-                                        <div class="bg-[#050505] border border-[#161616] rounded-xl overflow-visible shadow-lg relative">
-                                            <div class="px-4 py-2 flex items-center gap-3 border-b border-[#111111]">
-                                                <h3 class="text-[10px] font-light tracking-widest text-[#666666] uppercase whitespace-nowrap m-0">General</h3><div class="flex-1 h-[1px] bg-[#111111]"></div>
-                                            </div>
-                                            <div class="px-4 py-1">
-                                                <div class="flex items-center justify-between py-1.5 border-b border-[#111111] last:border-0"><span class="text-xs font-light text-[#888888]">Field of View</span><div onclick="toggleSwitch(this)" class="w-7 h-3.5 bg-[#111111] border border-[#222222] rounded-full flex items-center px-[2px] cursor-pointer transition-colors duration-300"><div class="w-2 h-2 bg-[#444444] rounded-full transform translate-x-0 transition-transform duration-300"></div></div></div>
-                                                <div class="flex items-center justify-between py-1.5 border-b border-[#111111] last:border-0"><span class="text-xs font-light text-[#888888]">Mouse Acceleration</span><div onclick="toggleSwitch(this)" class="w-7 h-3.5 bg-[#111111] border border-[#222222] rounded-full flex items-center px-[2px] cursor-pointer transition-colors duration-300"><div class="w-2 h-2 bg-[#444444] rounded-full transform translate-x-0 transition-transform duration-300"></div></div></div>
-                                                <div class="flex items-center justify-between py-1.5 border-b border-[#111111] last:border-0"><span class="text-xs font-light text-[#888888]">Humanized Aim</span><div onclick="toggleSwitch(this)" class="w-7 h-3.5 bg-[#111111] border border-[#222222] rounded-full flex items-center px-[2px] cursor-pointer transition-colors duration-300"><div class="w-2 h-2 bg-[#444444] rounded-full transform translate-x-0 transition-transform duration-300"></div></div></div>
-                                                <div class="flex items-center justify-between py-1.5 border-b border-[#111111] last:border-0"><span class="text-xs font-light text-[#888888]">Ignore Below Crosshair</span><div onclick="toggleSwitch(this)" class="w-7 h-3.5 bg-[#111111] border border-[#222222] rounded-full flex items-center px-[2px] cursor-pointer transition-colors duration-300"><div class="w-2 h-2 bg-[#444444] rounded-full transform translate-x-0 transition-transform duration-300"></div></div></div>
-                                            </div>
-                                        </div>
-
-                                        <div class="bg-[#050505] border border-[#161616] rounded-xl overflow-visible shadow-lg relative">
-                                            <div class="px-4 py-2 flex items-center gap-3 border-b border-[#111111]">
-                                                <h3 class="text-[10px] font-light tracking-widest text-[#666666] uppercase whitespace-nowrap m-0">Configuration</h3><div class="flex-1 h-[1px] bg-[#111111]"></div>
-                                            </div>
-                                            <div class="px-4 py-1">
-                                                <div class="flex items-center justify-between py-1.5 border-b border-[#111111] last:border-0 group"><span class="text-xs font-light text-[#888888] w-40 flex-shrink-0 pointer-events-none">Field of View</span><div class="flex-1 flex items-center gap-3 ml-auto relative max-w-[180px]"><input type="range" min="0" max="1000" value="503" class="absolute inset-0 w-[calc(100%-2rem)] h-full opacity-0 cursor-pointer z-10" oninput="updateSlider(this)"><div class="flex-1 h-[2px] bg-[#1a1a1a] rounded-full relative flex items-center w-full pointer-events-none transition-colors group-hover:bg-[#222222]"><div class="slider-fill absolute left-0 h-[2px] bg-[#a78bfa] rounded-full"></div><div class="slider-thumb absolute w-2.5 h-2.5 bg-[#c4b5fd] rounded-full shadow-[0_0_8px_rgba(167,139,250,0.6)]" style="transform: translateX(-50%);"></div></div><span class="slider-text w-6 text-right text-[10px] font-light text-[#555555]">503</span></div></div>
-                                                <div class="flex items-center justify-between py-1.5 border-b border-[#111111] last:border-0 group"><span class="text-xs font-light text-[#888888] w-40 flex-shrink-0 pointer-events-none">Smoothing</span><div class="flex-1 flex items-center gap-3 ml-auto relative max-w-[180px]"><input type="range" min="0" max="20" step="0.1" value="6.2" class="absolute inset-0 w-[calc(100%-2rem)] h-full opacity-0 cursor-pointer z-10" oninput="updateSlider(this)"><div class="flex-1 h-[2px] bg-[#1a1a1a] rounded-full relative flex items-center w-full pointer-events-none transition-colors group-hover:bg-[#222222]"><div class="slider-fill absolute left-0 h-[2px] bg-[#a78bfa] rounded-full"></div><div class="slider-thumb absolute w-2.5 h-2.5 bg-[#c4b5fd] rounded-full shadow-[0_0_8px_rgba(167,139,250,0.6)]" style="transform: translateX(-50%);"></div></div><span class="slider-text w-6 text-right text-[10px] font-light text-[#555555]">6.2</span></div></div>
-                                                <div class="flex items-center justify-between py-1.5 border-b border-[#111111] last:border-0 group"><span class="text-xs font-light text-[#888888] w-40 flex-shrink-0 pointer-events-none">Sensitivity</span><div class="flex-1 flex items-center gap-3 ml-auto relative max-w-[180px]"><input type="range" min="0" max="2" step="0.01" value="0.55" class="absolute inset-0 w-[calc(100%-2rem)] h-full opacity-0 cursor-pointer z-10" oninput="updateSlider(this)"><div class="flex-1 h-[2px] bg-[#1a1a1a] rounded-full relative flex items-center w-full pointer-events-none transition-colors group-hover:bg-[#222222]"><div class="slider-fill absolute left-0 h-[2px] bg-[#a78bfa] rounded-full"></div><div class="slider-thumb absolute w-2.5 h-2.5 bg-[#c4b5fd] rounded-full shadow-[0_0_8px_rgba(167,139,250,0.6)]" style="transform: translateX(-50%);"></div></div><span class="slider-text w-6 text-right text-[10px] font-light text-[#555555]">0.55</span></div></div>
-                                                <div class="flex items-center justify-between py-1.5 border-b border-[#111111] last:border-0 group"><span class="text-xs font-light text-[#888888] w-40 flex-shrink-0 pointer-events-none">X Offset</span><div class="flex-1 flex items-center gap-3 ml-auto relative max-w-[180px]"><input type="range" min="0" max="10" value="1" class="absolute inset-0 w-[calc(100%-2rem)] h-full opacity-0 cursor-pointer z-10" oninput="updateSlider(this)"><div class="flex-1 h-[2px] bg-[#1a1a1a] rounded-full relative flex items-center w-full pointer-events-none transition-colors group-hover:bg-[#222222]"><div class="slider-fill absolute left-0 h-[2px] bg-[#a78bfa] rounded-full"></div><div class="slider-thumb absolute w-2.5 h-2.5 bg-[#c4b5fd] rounded-full shadow-[0_0_8px_rgba(167,139,250,0.6)]" style="transform: translateX(-50%);"></div></div><span class="slider-text w-6 text-right text-[10px] font-light text-[#555555]">1</span></div></div>
-                                                <div class="flex items-center justify-between py-1.5 border-b border-[#111111] last:border-0 group"><span class="text-xs font-light text-[#888888] w-40 flex-shrink-0 pointer-events-none">Y Offset</span><div class="flex-1 flex items-center gap-3 ml-auto relative max-w-[180px]"><input type="range" min="0" max="10" value="3" class="absolute inset-0 w-[calc(100%-2rem)] h-full opacity-0 cursor-pointer z-10" oninput="updateSlider(this)"><div class="flex-1 h-[2px] bg-[#1a1a1a] rounded-full relative flex items-center w-full pointer-events-none transition-colors group-hover:bg-[#222222]"><div class="slider-fill absolute left-0 h-[2px] bg-[#a78bfa] rounded-full"></div><div class="slider-thumb absolute w-2.5 h-2.5 bg-[#c4b5fd] rounded-full shadow-[0_0_8px_rgba(167,139,250,0.6)]" style="transform: translateX(-50%);"></div></div><span class="slider-text w-6 text-right text-[10px] font-light text-[#555555]">3</span></div></div>
-                                                <div class="flex items-center justify-between py-1.5 border-b border-[#111111] last:border-0 group"><span class="text-xs font-light text-[#888888] w-40 flex-shrink-0 pointer-events-none">Stroke Delay</span><div class="flex-1 flex items-center gap-3 ml-auto relative max-w-[180px]"><input type="range" min="0" max="50" value="10" class="absolute inset-0 w-[calc(100%-2rem)] h-full opacity-0 cursor-pointer z-10" oninput="updateSlider(this)"><div class="flex-1 h-[2px] bg-[#1a1a1a] rounded-full relative flex items-center w-full pointer-events-none transition-colors group-hover:bg-[#222222]"><div class="slider-fill absolute left-0 h-[2px] bg-[#a78bfa] rounded-full"></div><div class="slider-thumb absolute w-2.5 h-2.5 bg-[#c4b5fd] rounded-full shadow-[0_0_8px_rgba(167,139,250,0.6)]" style="transform: translateX(-50%);"></div></div><span class="slider-text w-6 text-right text-[10px] font-light text-[#555555]">10</span></div></div>
-                                                <div class="flex items-center justify-between py-1.5 border-b border-[#111111] last:border-0 group"><span class="text-xs font-light text-[#888888] w-40 flex-shrink-0 pointer-events-none">Accel Factor</span><div class="flex-1 flex items-center gap-3 ml-auto relative max-w-[180px]"><input type="range" min="0" max="10" value="0" class="absolute inset-0 w-[calc(100%-2rem)] h-full opacity-0 cursor-pointer z-10" oninput="updateSlider(this)"><div class="flex-1 h-[2px] bg-[#1a1a1a] rounded-full relative flex items-center w-full pointer-events-none transition-colors group-hover:bg-[#222222]"><div class="slider-fill absolute left-0 h-[2px] bg-[#a78bfa] rounded-full"></div><div class="slider-thumb absolute w-2.5 h-2.5 bg-[#c4b5fd] rounded-full shadow-[0_0_8px_rgba(167,139,250,0.6)]" style="transform: translateX(-50%);"></div></div><span class="slider-text w-6 text-right text-[10px] font-light text-[#555555]">0</span></div></div>
-                                                <div class="flex items-center justify-between py-1.5 border-b border-[#111111] last:border-0 group"><span class="text-xs font-light text-[#888888] w-40 flex-shrink-0 pointer-events-none">Humanize Factor</span><div class="flex-1 flex items-center gap-3 ml-auto relative max-w-[180px]"><input type="range" min="0" max="1" step="0.1" value="0.5" class="absolute inset-0 w-[calc(100%-2rem)] h-full opacity-0 cursor-pointer z-10" oninput="updateSlider(this)"><div class="flex-1 h-[2px] bg-[#1a1a1a] rounded-full relative flex items-center w-full pointer-events-none transition-colors group-hover:bg-[#222222]"><div class="slider-fill absolute left-0 h-[2px] bg-[#a78bfa] rounded-full"></div><div class="slider-thumb absolute w-2.5 h-2.5 bg-[#c4b5fd] rounded-full shadow-[0_0_8px_rgba(167,139,250,0.6)]" style="transform: translateX(-50%);"></div></div><span class="slider-text w-6 text-right text-[10px] font-light text-[#555555]">0.5</span></div></div>
-                                            </div>
-                                        </div>
-
-                                        <div class="bg-[#050505] border border-[#161616] rounded-xl overflow-visible shadow-lg relative">
-                                            <div class="px-4 py-2 flex items-center gap-3 border-b border-[#111111]">
-                                                <h3 class="text-[10px] font-light tracking-widest text-[#666666] uppercase whitespace-nowrap m-0">Smoothing Mode</h3><div class="flex-1 h-[1px] bg-[#111111]"></div>
-                                            </div>
-                                            <div class="px-4 py-2 space-y-2">
-                                                <div class="flex items-center justify-between relative dropdown-container">
-                                                    <span class="text-xs font-light text-[#888888]">Mode</span>
-                                                    <div onclick="toggleDropdown(this)" class="bg-[#0a0a0a] border border-[#1f1f1f] rounded px-2 py-1 flex items-center justify-between gap-2 cursor-pointer hover:bg-[#111111] transition-colors w-28 relative z-20"><span class="text-[10px] font-light text-[#bbbbbb] dropdown-val">Advanced</span><iconify-icon icon="lucide:chevron-down" width="12" height="12" class="text-[#666666] pointer-events-none"></iconify-icon></div>
-                                                    <div class="dropdown-menu hidden absolute top-8 right-0 w-28 bg-[#050505] border border-[#1f1f1f] rounded shadow-xl z-30 overflow-hidden py-1"><div onclick="selectOption(this, 'Basic')" class="px-2 py-1 text-[10px] font-light text-[#888888] hover:text-[#bbbbbb] hover:bg-[#111111] cursor-pointer">Basic</div><div onclick="selectOption(this, 'Advanced')" class="px-2 py-1 text-[10px] font-light text-[#888888] hover:text-[#bbbbbb] hover:bg-[#111111] cursor-pointer">Advanced</div></div>
-                                                </div>
-                                                <div class="flex items-center justify-between relative dropdown-container">
-                                                    <span class="text-xs font-light text-[#888888]">Curve Profile</span>
-                                                    <div onclick="toggleDropdown(this)" class="bg-[#0a0a0a] border border-[#1f1f1f] rounded px-2 py-1 flex items-center justify-between gap-2 cursor-pointer hover:bg-[#111111] transition-colors w-28 relative z-20"><span class="text-[10px] font-light text-[#bbbbbb] dropdown-val">Cubic Bezier</span><iconify-icon icon="lucide:chevron-down" width="12" height="12" class="text-[#666666] pointer-events-none"></iconify-icon></div>
-                                                    <div class="dropdown-menu hidden absolute top-8 right-0 w-28 bg-[#050505] border border-[#1f1f1f] rounded shadow-xl z-30 overflow-hidden py-1"><div onclick="selectOption(this, 'Linear')" class="px-2 py-1 text-[10px] font-light text-[#888888] hover:text-[#bbbbbb] hover:bg-[#111111] cursor-pointer">Linear</div><div onclick="selectOption(this, 'Cubic Bezier')" class="px-2 py-1 text-[10px] font-light text-[#888888] hover:text-[#bbbbbb] hover:bg-[#111111] cursor-pointer">Cubic Bezier</div><div onclick="selectOption(this, 'Exponential')" class="px-2 py-1 text-[10px] font-light text-[#888888] hover:text-[#bbbbbb] hover:bg-[#111111] cursor-pointer">Exponential</div></div>
-                                                </div>
-
-                                                <div class="h-32 bg-[#020202] border border-[#111111] rounded mt-3 relative overflow-hidden flex flex-col">
-                                                    <div class="absolute top-2 left-3 z-10 text-[9px] text-[#444] leading-tight">12.7<br>Cubic</div>
-                                                    <div class="absolute top-2 right-3 z-10 text-[9px] font-semibold text-[#a78bfa] tracking-wider">X 8.3 &nbsp; Y 10.6</div>
-                                                    <div class="absolute left-1 top-8 bottom-4 flex flex-col justify-between text-[8px] text-[#333] z-10"><span>10.2</span><span>7.6</span><span>5.1</span><span>2.5</span><span>0.0</span></div>
-                                                    <svg viewBox="0 0 400 120" class="w-full h-full absolute inset-0 pt-6 pl-8 pb-4 pr-4" preserveAspectRatio="none">
-                                                        <line x1="0" y1="20%" x2="100%" y2="20%" stroke="#111" stroke-width="1" />
-                                                        <line x1="0" y1="40%" x2="100%" y2="40%" stroke="#111" stroke-width="1" />
-                                                        <line x1="0" y1="60%" x2="100%" y2="60%" stroke="#111" stroke-width="1" />
-                                                        <line x1="0" y1="80%" x2="100%" y2="80%" stroke="#111" stroke-width="1" />
-                                                        <line x1="0" y1="100%" x2="100%" y2="100%" stroke="#222" stroke-width="1" />
-                                                        <path d="M 10 10 Q 150 110 390 110" stroke="#a78bfa" stroke-width="4" fill="none" opacity="0.15" />
-                                                        <path d="M 10 10 Q 150 110 390 110" stroke="#a78bfa" stroke-width="1.5" fill="none" />
-                                                        <circle cx="10" cy="10" r="3" fill="#d8b4fe" />
-                                                        <path d="M 10 30 Q 180 115 390 115" stroke="#a78bfa" stroke-width="4" fill="none" opacity="0.1" />
-                                                        <path d="M 10 30 Q 180 115 390 115" stroke="#8b5cf6" stroke-width="1.5" fill="none" opacity="0.7" />
-                                                        <circle cx="10" cy="30" r="2.5" fill="#a78bfa" opacity="0.8" />
-                                                    </svg>
-                                                    <div class="absolute bottom-1 left-8 right-4 flex justify-between text-[8px] text-[#333] z-10 px-2"><span>13%</span><span>25%</span><span>38%</span><span>50%</span><span>63%</span><span>75%</span><span>88%</span></div>
-                                                    <div class="absolute bottom-1 right-1/2 translate-x-1/2 text-[8px] text-[#444] z-10">Time →</div>
-                                                </div>
-
-                                                <div class="pt-2 pb-1 space-y-1.5">
-                                                    <div class="flex items-center justify-between group"><span class="text-xs font-light text-[#888888] w-32 flex-shrink-0 pointer-events-none">X Smoothing</span><div class="flex-1 flex items-center gap-3 ml-auto relative max-w-[180px]"><input type="range" min="0" max="20" step="0.1" value="8.3" class="absolute inset-0 w-[calc(100%-2rem)] h-full opacity-0 cursor-pointer z-10" oninput="updateSlider(this)"><div class="flex-1 h-[2px] bg-[#1a1a1a] rounded-full relative flex items-center w-full pointer-events-none transition-colors group-hover:bg-[#222222]"><div class="slider-fill absolute left-0 h-[2px] bg-[#a78bfa] rounded-full"></div><div class="slider-thumb absolute w-2.5 h-2.5 bg-[#c4b5fd] rounded-full shadow-[0_0_8px_rgba(167,139,250,0.6)]" style="transform: translateX(-50%);"></div></div><span class="slider-text w-6 text-right text-[10px] font-light text-[#555555]">8.3</span></div></div>
-                                                    <div class="flex items-center justify-between group"><span class="text-xs font-light text-[#888888] w-32 flex-shrink-0 pointer-events-none">Y Smoothing</span><div class="flex-1 flex items-center gap-3 ml-auto relative max-w-[180px]"><input type="range" min="0" max="20" step="0.1" value="10.6" class="absolute inset-0 w-[calc(100%-2rem)] h-full opacity-0 cursor-pointer z-10" oninput="updateSlider(this)"><div class="flex-1 h-[2px] bg-[#1a1a1a] rounded-full relative flex items-center w-full pointer-events-none transition-colors group-hover:bg-[#222222]"><div class="slider-fill absolute left-0 h-[2px] bg-[#a78bfa] rounded-full"></div><div class="slider-thumb absolute w-2.5 h-2.5 bg-[#c4b5fd] rounded-full shadow-[0_0_8px_rgba(167,139,250,0.6)]" style="transform: translateX(-50%);"></div></div><span class="slider-text w-6 text-right text-[10px] font-light text-[#555555]">10.6</span></div></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </main>
-                        </div>
+                        <h3 class="block-label" style="margin-bottom:28px">Highlights</h3>
+                        <ul class="feat-list">
+                            <li>Web-based GUI</li>
+                            <li>Unique encrypted build per user</li>
+                            <li>Optimized for low-end PCs</li>
+                            <li>Captures at 1000+ FPS</li>
+                            <li>Config system with named saves</li>
+                            <li>Key tied to hardware ID</li>
+                        </ul>
                     </div>
 
                     <div class="pricing-block">
@@ -363,23 +535,13 @@
                             <span class="payment-chip">Credit / Debit</span><span class="payment-chip">Venmo</span><span class="payment-chip">+ More</span>
                         </div>
                         <p class="pricing-note" style="margin-top:10px">Have a different method? Open a ticket on Discord.</p>
-
-                        <h3 class="block-label" style="margin-top:28px">Highlights</h3>
-                        <ul class="feat-list small">
-                            <li>Web-based GUI</li>
-                            <li>Unique encrypted build per user</li>
-                            <li>Optimized for low-end PCs</li>
-                            <li>Captures at 1000+ FPS</li>
-                            <li>Config system with named saves</li>
-                            <li>Key tied to hardware ID</li>
-                        </ul>
                     </div>
                 </div>
             </div>
 
         </div>
 
-        <footer>
+        <footer class="reveal-up">
             <div class="footer-inner">
                 <div class="footer-top">
                     <a href="#" class="footer-logo">
@@ -409,103 +571,114 @@
     </main>
 
     <script>
+        // Cinematic Scroll Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+
         const rail = document.querySelector('.side-rail');
         if (rail) {
-        rail.classList.add('intro');
-        setTimeout(() => rail.classList.remove('intro'), 2000);
+            rail.classList.add('intro');
+            setTimeout(() => rail.classList.remove('intro'), 2000);
         }
 
         document.querySelectorAll('.ptab').forEach(tab => {
-        tab.addEventListener('click', () => {
-        document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.product-panel').forEach(p => p.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.product-panel').forEach(p => p.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+            });
         });
-        });
 
-        // WIDGET INTERACTIVE SCRIPTS
-        document.addEventListener('DOMContentLoaded', () => document.querySelectorAll('input[type="range"]').forEach(updateSlider));
+        // REVIEWS STREAM LOGIC (WITH SMOOTH BRAKING)
+        async function fetchAndRenderReviews() {
+            try {
+                const [res1, res2] = await Promise.all([
+                    fetch('reviews/server1_reviews.json').catch(() => null),
+                    fetch('reviews/server2_reviews.json').catch(() => null)
+                ]);
 
-        function toggleSwitch(e) {
-        const t = e.children[0];
-        if (e.classList.contains('bg-[#2d1b4e]')) {
-        e.classList.replace('bg-[#2d1b4e]', 'bg-[#111111]'); e.classList.replace('border-[#3c2468]', 'border-[#222222]'); e.classList.remove('shadow-[inset_0_0_10px_rgba(45,27,78,0.5)]');
-        t.classList.replace('bg-[#a78bfa]', 'bg-[#444444]'); t.classList.replace('translate-x-[20px]', 'translate-x-0'); t.classList.replace('translate-x-[18px]', 'translate-x-0'); t.classList.remove('shadow-[0_0_8px_rgba(167,139,250,0.8)]');
-        } else {
-        e.classList.replace('bg-[#111111]', 'bg-[#2d1b4e]'); e.classList.replace('border-[#222222]', 'border-[#3c2468]'); e.classList.add('shadow-[inset_0_0_10px_rgba(45,27,78,0.5)]');
-        t.classList.replace('bg-[#444444]', 'bg-[#a78bfa]');
-        // Handle different sizes between Trigger and V3
-        if (e.classList.contains('w-10')) t.classList.replace('translate-x-0', 'translate-x-[20px]');
-        else t.classList.replace('translate-x-0', 'translate-x-[18px]');
-        t.classList.add('shadow-[0_0_8px_rgba(167,139,250,0.8)]');
-        }
-        }
+                const data1 = res1 && res1.ok ? await res1.json() : [];
+                const data2 = res2 && res2.ok ? await res2.json() : [];
 
-        // Lock down every image on the page without changing layout
-function lockImage(img) {
-  if (!img || img.dataset.imageLocked === '1') return;
+                let combinedReviews = [...data1, ...data2].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
-  img.dataset.imageLocked = '1';
-  img.setAttribute('draggable', 'false');
-  img.addEventListener('dragstart', (e) => e.preventDefault());
-  img.addEventListener('contextmenu', (e) => e.preventDefault());
-}
+                if (combinedReviews.length === 0) return;
 
-// Lock existing images
-document.querySelectorAll('img').forEach(lockImage);
+                const buildReviewCard = (review) => {
+                    const cleanContent = review.content.replace(/<@[0-9]+>/g, '@acerus');
+                    const trimmedContent = cleanContent.length > 100 ? cleanContent.substring(0, 97) + "..." : cleanContent;
+                    const reviewDate = new Date(review.timestamp).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+                    const avatarSrc = review.author.avatar_url || 'https://i.imgur.com/xCe4hEC.png'; 
 
-// Lock future images too
-const imageObserver = new MutationObserver((mutations) => {
-  for (const mutation of mutations) {
-    mutation.addedNodes.forEach((node) => {
-      if (node.nodeType !== 1) return;
+                    return `
+                        <div class="review-card">
+                            <div class="review-header">
+                                <img src="${avatarSrc}" alt="${review.author.display_name}" class="review-avatar">
+                                <div class="review-meta">
+                                    <span class="review-author">${review.author.display_name}</span>
+                                    <span class="review-date">${reviewDate}</span>
+                                </div>
+                            </div>
+                            <div class="review-content">${trimmedContent}</div>
+                        </div>
+                    `;
+                };
 
-      if (node.tagName === 'IMG') {
-        lockImage(node);
-      } else {
-        node.querySelectorAll?.('img').forEach(lockImage);
-      }
-    });
-  }
-});
+                const htmlString = combinedReviews.map(buildReviewCard).join('');
+                const seamlessHtml = htmlString + htmlString;
 
-imageObserver.observe(document.documentElement, {
-  childList: true,
-  subtree: true,
-});
+                const track = document.getElementById('reviews-track-hero');
+                if (track) {
+                    track.innerHTML = seamlessHtml;
+                    initSmoothMarquee(track);
+                }
 
-// Block right-click on any image, even inside wrappers
-document.addEventListener(
-  'contextmenu',
-  (e) => {
-    if (e.target.closest && e.target.closest('img')) {
-      e.preventDefault();
-    }
-  },
-  true
-);
-
-        function toggleDropdown(e) {
-        document.querySelectorAll('.dropdown-menu').forEach(m => { if (m !== e.nextElementSibling) m.classList.add('hidden') });
-        e.nextElementSibling.classList.toggle('hidden');
+            } catch (error) {
+                console.error("Error fetching review files:", error);
+            }
         }
 
-        function selectOption(e, v) {
-        const c = e.closest('.dropdown-container');
-        c.querySelector('.dropdown-val').innerText = v;
-        c.querySelector('.dropdown-menu').classList.add('hidden');
+        // SMOOTH LERP MARQUEE LOGIC
+        function initSmoothMarquee(track) {
+            let baseSpeed = 0.9; // Fast enough to be interesting
+            let targetSpeed = baseSpeed;
+            let currentSpeed = baseSpeed;
+            let currentX = 0;
+
+            // Only stop if they explicitly hover on a card (not the empty space)
+            const cards = track.querySelectorAll('.review-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => targetSpeed = 0);
+                card.addEventListener('mouseleave', () => targetSpeed = baseSpeed);
+            });
+
+            function animate() {
+                // Smoothly lerps between speeds (car brake effect)
+                currentSpeed += (targetSpeed - currentSpeed) * 0.05;
+                currentX -= currentSpeed;
+
+                // Infinite loop reset
+                if (track.scrollWidth > 0 && Math.abs(currentX) >= (track.scrollWidth / 2)) {
+                    currentX = 0;
+                }
+
+                track.style.transform = `translateX(${currentX}px)`;
+                requestAnimationFrame(animate);
+            }
+
+            requestAnimationFrame(animate);
         }
 
-        document.addEventListener('click', e => { if (!e.target.closest('.dropdown-container')) document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.add('hidden')) });
-
-        function updateSlider(e) {
-        const min = parseFloat(e.min) || 0, max = parseFloat(e.max) || 100, v = parseFloat(e.value), p = ((v - min) / (max - min)) * 100, c = e.parentElement;
-        c.querySelector('.slider-fill').style.width = p + '%';
-        c.querySelector('.slider-thumb').style.left = p + '%';
-        c.querySelector('.slider-text').innerText = v;
-        }
+        document.addEventListener('DOMContentLoaded', fetchAndRenderReviews);
     </script>
-
 </body>
 </html>
